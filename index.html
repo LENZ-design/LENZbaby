@@ -1,0 +1,1056 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LENZ baby – ručne tvorené plienkové torty | Dunajská Streda</title>
+<meta name="description" content="LENZ baby – ručne tvorené plienkové torty. Hotové torty na osobný odber v Dunajskej Strede.">
+<meta name="theme-color" content="#FFFBF8">
+<link rel="icon" type="image/webp" href="img/srdce.webp">
+<link rel="apple-touch-icon" href="img/logo.webp">
+<!-- Zdieľanie na sociálnych sieťach. Po spustení webu doplňte plnú adresu do og:url a og:image (napr. https://lenzbaby.sk/fotky/jednorozec-celok.jpg). -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="sk_SK">
+<meta property="og:site_name" content="LENZ baby">
+<meta property="og:title" content="LENZ baby – Malý zázrak. Veľká radosť.">
+<meta property="og:description" content="Ručne tvorené plienkové torty, ktoré potešia na prvý pohľad a poslúžia každý deň. Osobný odber v Dunajskej Strede.">
+<meta property="og:image" content="fotky/jednorozec-celok.jpg">
+<link rel="preload" as="image" href="fotky/jednorozec-celok.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="img/logo.webp">
+<!-- Písma sa načítajú bez blokovania stránky; kým sa stiahnu, použije sa systémové písmo. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500..700&family=Nunito:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500..700&family=Nunito:wght@400;600;700;800&display=swap"></noscript>
+<style>
+html{-webkit-text-size-adjust:100%}
+body{margin:0;padding:0 0 env(safe-area-inset-bottom,0px)}
+img{max-width:100%}
+[hidden]:not([hidden=until-found i]){display:none!important}
+/* Layout: centered welcome hero with felt elements; grid of finished cakes; reservation inside the cake detail. */
+:root{
+  --bg:#FFFBF8;--surface:#FFFFFF;--surface-2:#FCF2EB;--ink:#3A2E28;--muted:#76665D;--line:#F3E6DC;
+  --btn-bg:#3F322B;--btn-fg:#FFFBF7;
+  --blush:#F9CDBF;--coral:#E8876C;--mint:#E3F0E6;--peach:#FFEDE4;--sky:#C9DCEB;--sage:#C9D5B2;--butter:#F5D899;--lilac:#D8C7E4;
+  --gold-ink:#7A5A00;--focus:#C9654D;--ok:#4E7A3A;--warn:#9A5B00;--off:#A39488;
+  --shadow:0 1px 2px rgba(90,60,40,.06),0 8px 24px rgba(90,60,40,.07);
+  --shadow-lift:0 2px 4px rgba(90,60,40,.06),0 18px 40px rgba(90,60,40,.14);
+  --f-display:"Baloo 2","Nunito","Segoe UI",system-ui,sans-serif;
+  --f-body:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;
+  --r-card:24px;
+  color-scheme:light;
+}
+/* Mode chosen by the "Pre dievčatko / Pre chlapčeka" buttons: tints the whole page. */
+:root[data-mode="girl"]{--bg:#FFFAFB;--surface-2:#FDEFF2;--line:#F6E2E7;--peach:#FFE3E9;--mint:#FBEAF4;--coral:#E0778D;--blush:#F8C5D0;--focus:#C9546E}
+:root[data-mode="boy"]{--bg:#F7FCFD;--surface-2:#EBF5F7;--line:#DDEDF1;--peach:#E1F0F8;--mint:#E2F3EA;--coral:#4E95C4;--blush:#BCDCEF;--focus:#2F78AA}
+body,.band,.strip,.site-header,body::before,.cake,.ph{transition:background-color .6s ease,border-color .6s ease,color .6s ease}
+.hero h1 em{transition:color .6s ease}
+:root[data-mode="boy"] .deco img[src*="srdce"],.pick-boy img{filter:hue-rotate(175deg) saturate(.85)}
+.pick{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:-8px 0 32px}
+.pick-btn{display:inline-flex;align-items:center;gap:12px;min-height:62px;padding:0 26px 0 14px;border-radius:999px;border:2px solid var(--line);background:var(--surface);font-weight:800;font-size:1.06rem;cursor:pointer;transition:transform .2s,box-shadow .2s,background .3s,border-color .3s}
+.pick-btn img{width:40px;height:auto;transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.pick-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.pick-btn:hover img{transform:rotate(-10deg) scale(1.08)}
+.pick-girl[aria-pressed="true"]{background:#FDE2E8;border-color:#E0778D}
+.pick-boy[aria-pressed="true"]{background:#DDEEF8;border-color:#4E95C4}
+.pick-btn[aria-pressed="true"] img{transform:scale(1.12)}
+.pick-all{border:0;background:none;font-weight:700;color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:10px 6px}
+:root[data-mode="girl"] .deco img[src*="srdce"],.pick-girl img{filter:hue-rotate(-18deg) saturate(1.1)}
+:root[data-mode="boy"] .ph-ill{filter:hue-rotate(160deg) saturate(.7) drop-shadow(0 6px 10px rgba(40,70,90,.12))}
+@media (max-width:560px){.pick{gap:10px}.pick-btn{flex:1 1 0;min-width:0;justify-content:center;gap:8px;padding:0 12px 0 8px;font-size:.98rem;white-space:nowrap}.pick-btn img{width:32px}.pick-all{width:100%;text-align:center}}
+
+/* Single warm light theme on purpose: it matches the cream ground of the LENZ baby logo and its felt illustrations. */
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:110px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--peach)}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;line-height:1.08;margin:0;text-wrap:balance;letter-spacing:0}
+h1{font-size:clamp(2.5rem,6vw,4.4rem)}
+h2{font-size:clamp(1.9rem,3.6vw,2.7rem)}
+h3{font-size:1.32rem}
+p{margin:0}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.section{padding-block:clamp(64px,9vw,112px)}
+.band{background:linear-gradient(180deg,var(--surface),var(--peach) 140%);border-block:1px solid var(--line);position:relative;overflow:hidden}
+.eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.lead{font-size:1.14rem;color:var(--muted);max-width:60ch}
+.sec-head{display:grid;gap:14px;margin-bottom:36px;max-width:720px}
+.note{font-size:.88rem;color:var(--muted)}
+.hint{font-size:.88rem;color:var(--muted)}
+.num{font-variant-numeric:tabular-nums}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 28px;border-radius:999px;border:2px solid transparent;font-weight:800;font-size:1.02rem;text-decoration:none;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,background .2s ease;white-space:nowrap}
+.btn-primary{background:var(--btn-bg);color:var(--btn-fg)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift)}
+.btn-ghost{background:transparent;border-color:var(--ink);color:var(--ink)}
+.btn-ghost:hover{background:var(--surface);transform:translateY(-2px)}
+.btn-soft{background:var(--surface-2);color:var(--ink)}
+.btn-soft:hover{background:var(--line)}
+.btn[disabled]{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-sm{min-height:44px;padding:0 20px;font-size:.95rem}
+
+.site-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--surface) 90%,transparent);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
+.hdr{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:76px}
+.logo{display:inline-flex;align-items:baseline;gap:7px;text-decoration:none;line-height:1}
+.logo img{display:block;height:58px;width:auto}
+@media (max-width:520px){.logo img{height:50px}}
+.logo b{font-family:var(--f-body);font-weight:800;letter-spacing:.26em;font-size:1.22rem}
+.logo i{font-family:var(--f-display);font-style:italic;font-weight:500;font-size:1.38rem}
+.logo .dot{width:7px;height:7px;border-radius:2px;background:var(--butter);transform:rotate(45deg) translateY(-3px)}
+.nav{display:flex;gap:4px;align-items:center}
+.nav a{padding:10px 14px;border-radius:999px;text-decoration:none;font-weight:700;font-size:.97rem;color:var(--muted);transition:background .2s,color .2s}
+.nav a:hover{background:var(--surface-2);color:var(--ink)}
+.hdr-right{display:flex;align-items:center;gap:8px}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px}
+.lang button{border:0;background:none;padding:6px 11px;border-radius:999px;font-weight:800;font-size:.8rem;letter-spacing:.06em;cursor:pointer;color:var(--muted)}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.menu-btn{display:none;width:46px;height:46px;border-radius:14px;border:1px solid var(--line);background:var(--surface);cursor:pointer;align-items:center;justify-content:center}
+.mobile-nav{display:none}
+@media (max-width:960px){
+  .nav{display:none}.menu-btn{display:inline-flex}
+  .mobile-nav{display:grid;gap:4px;padding:8px 0 16px}.mobile-nav[hidden]{display:none}
+  .mobile-nav a{padding:14px 12px;border-radius:14px;text-decoration:none;font-weight:700;font-size:1.08rem}
+}
+.strip{background:var(--peach);color:var(--ink);font-size:.88rem;font-weight:700}
+.strip .wrap{display:flex;gap:4px 22px;flex-wrap:wrap;justify-content:center;padding-block:8px;text-align:center}
+.strip span{display:inline-flex;gap:7px;align-items:center}
+@media (max-width:640px){.strip .s2{display:none}}
+
+.deco{position:absolute;pointer-events:none;z-index:0}
+.deco svg,.deco img{display:block;height:auto}
+@media (max-width:700px){.hero{padding-top:84px}.hero .deco{display:none}.hero .deco.d2{display:block;top:18px!important;right:18px!important}.hero .deco.d2 img{width:54px}}
+@media (prefers-reduced-motion:no-preference){
+  .float{animation:float 7s ease-in-out infinite}.float.d2{animation-delay:-2.5s;animation-duration:8.5s}.float.d3{animation-delay:-4s;animation-duration:9.5s}
+}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-10px) rotate(3deg)}}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+
+.ph{position:relative;margin:0;overflow:hidden;background:var(--surface-2);border-radius:var(--r-card);max-width:100%}
+.ph>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.ph-empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:16px;color:var(--muted);
+  background-image:radial-gradient(circle at 1px 1px,color-mix(in srgb,var(--muted) 22%,transparent) 1px,transparent 0);background-size:18px 18px}
+.ph-ill{width:34%;max-width:150px;height:auto;opacity:.92;filter:drop-shadow(0 6px 10px rgba(90,60,40,.12))}
+.ph-empty strong{font-size:.92rem;color:var(--ink);font-weight:700;max-width:28ch;line-height:1.35}
+.ph-empty small{font-size:.74rem;opacity:.85}
+.ph:not(.miss) .ph-empty>*{visibility:hidden}
+
+.hero{position:relative;overflow:hidden;padding-block:clamp(56px,9vw,120px) clamp(40px,6vw,72px);
+  background:radial-gradient(60% 70% at 15% 10%,var(--peach) 0,transparent 70%),radial-gradient(55% 60% at 90% 30%,var(--mint) 0,transparent 70%),var(--bg)}
+.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(32px,5vw,72px);align-items:center}
+.hero-copy{display:grid;justify-items:start;gap:24px;min-width:0}
+.hero h1{font-size:clamp(3rem,7.4vw,5.8rem);line-height:1.02}
+.hero h1 em{display:block;font-style:normal;color:var(--coral)}
+.hero .lead{font-size:clamp(1.08rem,2vw,1.25rem)}
+.hero-photo{position:relative;margin:0;justify-self:center;width:min(100%,430px)}
+.hp-frame{position:relative;z-index:1;aspect-ratio:3/4;overflow:hidden;border-radius:999px 999px 32px 32px/38% 38% 32px 32px;background:var(--surface-2);box-shadow:var(--shadow-lift);border:8px solid var(--surface)}
+.hp-frame img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.hero-photo .deco{z-index:2}
+.hp-heart{left:-34px;top:38%}
+.hp-rainbow{right:-48px;bottom:-26px}
+.hp-tag{position:absolute;z-index:3;left:50%;bottom:-20px;transform:translateX(-50%);display:inline-flex;gap:10px;align-items:center;white-space:nowrap;padding:12px 20px;border-radius:999px;border:0;background:var(--surface);box-shadow:var(--shadow-lift);font-weight:800;font-size:.95rem;cursor:pointer;transition:transform .2s ease}
+.hp-tag:hover{transform:translateX(-50%) translateY(-2px)}
+.hp-tag .num{color:var(--coral)}
+.hero-photo:has(.hp-tag:not([hidden])) .hp-frame{cursor:pointer}
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-copy{justify-items:center;text-align:center}
+  .hero .lead{text-align:center}
+  .hero-photo{width:min(100%,340px)}
+  .hp-heart{left:-14px}.hp-rainbow{right:-18px}
+  .hp-heart img{width:52px}.hp-rainbow img{width:110px}
+}
+.btn-lg{min-height:62px;padding:0 40px;font-size:1.12rem}
+.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:clamp(36px,5vw,64px);position:relative;z-index:1}
+.benefit{display:flex;gap:14px;align-items:center;padding:20px;background:var(--surface);border-radius:var(--r-card);border:1px solid var(--line)}
+.benefit .ico{flex:none;width:64px;height:64px;display:grid;place-items:center}
+.benefit .ico img{max-width:60px;max-height:60px;width:auto;height:auto}
+.benefit h3{font-family:var(--f-body);font-size:1.06rem;font-weight:800;letter-spacing:0}
+.benefit p{font-size:.95rem;color:var(--muted);margin-top:2px}
+@media (max-width:760px){.benefits{grid-template-columns:1fr}}
+
+
+.cakes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:1000px){.cakes{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:580px){.cakes{grid-template-columns:1fr}}
+.cake{position:relative;display:flex;flex-direction:column;background:var(--surface);border-radius:var(--r-card);border:1px solid var(--line);overflow:hidden;transition:transform .25s ease,box-shadow .25s ease}
+.cake:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}
+.cake-ph{display:block;border:0;padding:0;background:none;cursor:pointer;width:100%}
+.cake .ph{border-radius:0;aspect-ratio:4/5}
+.cake .ph>img{object-position:50% 50%}
+.cake-ph .ph>img{transition:transform .5s ease}.cake:hover .cake-ph .ph>img{transform:scale(1.04)}
+.cake-body{display:flex;flex-direction:column;gap:10px;padding:18px 20px 22px;flex:1}
+.cake-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.cake h3{font-size:1.3rem}
+.price{font-weight:800;font-size:1.12rem;white-space:nowrap}
+.meta{display:flex;flex-wrap:wrap;gap:6px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:800;padding:4px 10px;border-radius:999px;background:var(--surface-2);color:var(--muted)}
+.pill .dotc{width:9px;height:9px;border-radius:50%}
+.cake ul{margin:0;padding:0;list-style:none;display:grid;gap:4px;font-size:.93rem;color:var(--muted)}
+.cake li{display:flex;gap:8px}
+.cake li::before{content:"";flex:none;width:6px;height:6px;margin-top:.65em;border-radius:2px;background:var(--line);transform:rotate(45deg)}
+.cake .btn{margin-top:auto;width:100%}
+.empty{padding:40px;text-align:center;border:2px dashed var(--line);border-radius:var(--r-card);color:var(--muted);grid-column:1/-1}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px}
+@media (max-width:860px){.hero-ctas{justify-content:center}}
+@media (max-width:480px){.hero-ctas{width:100%}.hero-ctas .btn{flex:1 1 100%}}
+/* Inšpirácia – predané torty */
+.sold-wrap{margin-top:clamp(56px,8vw,96px)}
+.cake-sold .cake-ph{position:relative}
+.cake-sold .ph>img{filter:saturate(.85)}
+.sold-badge{position:absolute;z-index:2;top:14px;right:14px;padding:6px 12px;border-radius:999px;background:var(--surface);color:var(--ink);font-weight:800;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;box-shadow:var(--shadow)}
+.sold-badge.static{position:static;justify-self:start;background:var(--surface-2);box-shadow:none}
+.cake-sold .price small,.price small{font-size:.72em;font-weight:700;color:var(--muted)}
+.cake-sold .cake-body{gap:12px}
+.sold-more{display:flex;justify-content:center;margin-top:28px}
+.sold-more:empty{display:none}
+.sold-more .btn{min-height:56px}
+.count{display:inline-grid;place-items:center;min-width:28px;height:28px;padding:0 8px;border-radius:999px;background:var(--surface);font-size:.85rem}
+.sold-dlg-head{position:sticky;top:0;z-index:4;display:grid;gap:12px;padding:28px 28px 18px;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.sold-dlg-head h2{padding-right:56px}
+.sold-filter{display:flex;flex-wrap:wrap;gap:8px}
+.sf-btn{min-height:46px;padding:0 20px;border-radius:999px;border:2px solid var(--line);background:var(--surface);font-weight:800;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
+.sf-btn:hover{transform:translateY(-1px)}
+.sf-btn[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.sf-btn[data-sold-mode="girl"][aria-pressed="true"]{background:#FDE2E8;border-color:#E0778D;color:var(--ink)}
+.sf-btn[data-sold-mode="boy"][aria-pressed="true"]{background:#DDEEF8;border-color:#4E95C4;color:var(--ink)}
+.sold-all-grid{padding:24px 28px 28px}
+@media (max-width:820px){.sold-dlg-head{padding:20px 18px 14px}.sold-all-grid{padding:18px}}
+/* Torta na želanie */
+.custom{position:relative;display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(24px,4vw,56px);align-items:start;padding:clamp(22px,4vw,48px);border-radius:32px;background:var(--surface-2);border:1px solid var(--line)}
+@media (max-width:860px){.custom{grid-template-columns:1fr}}
+.custom-copy{display:grid;gap:16px;align-content:start;min-width:0}
+.custom-steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:10px}
+.custom-steps li{counter-increment:s;display:flex;gap:12px;align-items:center;font-weight:700}
+.custom-steps li::before{content:counter(s);flex:none;width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line);font-family:var(--f-display);font-weight:600}
+.custom .res{background:var(--surface)}
+.budgets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+@media (max-width:520px){.budgets{grid-template-columns:1fr}}
+.budget{gap:2px}
+.budget .bp{font-weight:800;font-variant-numeric:tabular-nums}
+.budget small{font-size:.8rem;color:var(--muted);line-height:1.35}
+.budget .gold{justify-self:start;margin-top:4px;font-size:.7rem;font-weight:800;padding:2px 8px;border-radius:999px;background:var(--butter);color:var(--gold-ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips .slot{display:inline-flex;padding:10px 16px;border-radius:999px}
+input[type=date]{width:100%;min-height:50px;padding:11px 15px;border-radius:14px;border:2px solid var(--line);background:var(--surface)}
+textarea{min-height:90px;resize:vertical}
+
+.how{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin:0;padding:0}
+@media (max-width:900px){.how{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.how{grid-template-columns:1fr}}
+.how li{position:relative;z-index:1;list-style:none;display:grid;gap:10px;align-content:start;padding:24px;border-radius:var(--r-card);background:var(--bg);border:1px solid var(--line)}
+.how .n{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-display);font-weight:600;font-size:1.2rem;color:#3F322B}
+.how h3{font-family:var(--f-body);font-weight:800;font-size:1.08rem;letter-spacing:0}
+.how p{color:var(--muted);font-size:.95rem}
+.pickup{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(24px,4vw,48px);align-items:start}
+@media (max-width:860px){.pickup{grid-template-columns:1fr}}
+.pk-copy{display:grid;gap:16px;min-width:0;position:relative;z-index:1}
+.windows{display:grid;gap:10px}
+.win{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:16px 20px;border-radius:16px;background:var(--surface);border:1px solid var(--line);font-weight:700}
+.win span:last-child{font-variant-numeric:tabular-nums}
+.facts{display:grid;gap:16px;padding:24px;border-radius:24px;background:var(--surface);border:1px solid var(--line)}
+.fact{display:flex;gap:12px;align-items:flex-start}
+.fact .ico{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:none;background:var(--surface-2)}
+.fact b{display:block}
+.fact span{color:var(--muted);font-size:.94rem}
+
+.about{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(28px,5vw,72px);align-items:center}
+.about .ph{aspect-ratio:1/1.1;border-radius:32px}
+.about-copy{display:grid;gap:18px;min-width:0}
+.about-copy p{max-width:60ch}
+.sig{font-family:var(--f-display);font-size:1.3rem;color:var(--coral)}
+@media (max-width:860px){.about{grid-template-columns:1fr}.about .ph{aspect-ratio:4/3}}
+
+.faq{display:grid;gap:12px;max-width:820px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:0 22px}
+.faq details[open]{box-shadow:var(--shadow)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;padding:20px 0;font-weight:800;font-size:1.05rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq .pm{flex:none;width:30px;height:30px;border-radius:50%;background:var(--surface-2);display:grid;place-items:center;transition:transform .25s}
+.faq details[open] .pm{transform:rotate(45deg)}
+.faq .a{padding:0 0 20px;color:var(--muted);max-width:68ch}
+
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media (max-width:760px){.contact{grid-template-columns:1fr}}
+.c-card{padding:28px;border-radius:26px;background:var(--bg);border:1px solid var(--line);display:grid;gap:14px;align-content:start}
+.c-line{display:flex;gap:12px;align-items:center;font-weight:700}
+.c-line .ico{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--surface-2);flex:none}
+.todo{color:var(--muted);font-weight:600;font-style:italic}
+footer .logo img{height:56px}
+footer{padding-block:40px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center}
+
+dialog{border:0;padding:0;background:transparent;max-width:100vw;max-height:100dvh;color:var(--ink)}
+dialog::backdrop{background:rgba(15,20,30,.55);backdrop-filter:blur(4px)}
+.dlg{background:var(--surface);border-radius:28px;width:min(1060px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow:auto;position:relative;box-shadow:var(--shadow-lift)}
+.dlg-close{position:absolute;top:14px;right:14px;z-index:5;width:46px;height:46px;border-radius:50%;border:0;background:var(--surface-2);cursor:pointer;display:grid;place-items:center}
+.detail{display:grid;grid-template-columns:1.05fr 1fr;gap:32px;padding:28px}
+@media (max-width:820px){.detail{grid-template-columns:1fr;padding:18px;padding-top:70px}}
+.gal{display:grid;gap:10px;min-width:0;align-content:start}
+.gal-main{cursor:zoom-in;border:0;padding:0;background:none;display:block;width:100%;border-radius:var(--r-card)}
+.gal-main .ph{aspect-ratio:4/5}
+.gal-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.gal-thumbs button{border:2px solid transparent;padding:0;border-radius:16px;background:none;cursor:zoom-in;transition:border-color .2s,transform .2s}
+.gal-thumbs button:hover{transform:translateY(-2px);border-color:var(--line)}
+.gal-thumbs .ph{aspect-ratio:1/1;border-radius:14px}
+.gal-thumbs .ph-empty{padding:6px;gap:4px}
+.gal-thumbs .ph-empty strong{font-size:.72rem}
+.gal-thumbs .ph-empty small{display:none}.gal-thumbs .ph-ill{width:44%}
+.side{display:grid;gap:18px;align-content:start;min-width:0;padding-right:44px}
+@media (max-width:820px){.side{padding-right:0}}
+.specs{display:grid;margin:0}
+.specs div{display:grid;grid-template-columns:140px 1fr;gap:14px;padding:11px 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.specs dt{color:var(--muted);font-weight:700}
+.specs dd{margin:0;font-weight:600}
+@media (max-width:480px){.specs div{grid-template-columns:1fr;gap:2px}}
+.res{display:grid;gap:16px;padding:20px;border-radius:20px;background:var(--bg);border:1px solid var(--line)}
+.field{display:grid;gap:8px;min-width:0}
+.field>label,.field>.lbl{font-weight:800;font-size:.97rem}
+.slots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.slot{position:relative;display:grid;padding:10px 14px;border-radius:14px;border:2px solid var(--line);background:var(--surface);cursor:pointer;transition:border-color .2s}
+.slot input{position:absolute;opacity:0}
+.slot:has(input:checked){border-color:var(--ink);box-shadow:0 0 0 3px color-mix(in srgb,var(--ink) 10%,transparent)}
+.slot:has(input:focus-visible){outline:3px solid var(--focus)}
+.slot b{font-size:.95rem}
+.slot span{font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.tog{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:14px;border:2px solid var(--line);background:var(--surface);cursor:pointer;font-weight:700}
+.tog:has(input:checked){border-color:var(--ink)}
+.tog input{width:22px;height:22px;accent-color:var(--ink);flex:none}
+.box-tog{align-items:center;justify-content:flex-start}.box-tog img{width:48px;height:auto;flex:none}.box-tog>span{flex:1;min-width:0}.box-tog .o-p{white-space:nowrap}
+.bump{animation:bump .4s ease}@keyframes bump{40%{transform:scale(1.08)}}
+input[type=text],input[type=tel],input[type=email],textarea{width:100%;min-height:50px;padding:11px 15px;border-radius:14px;border:2px solid var(--line);background:var(--surface);transition:border-color .2s}
+input:focus,textarea:focus{border-color:var(--ink);outline:none}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:520px){.row2{grid-template-columns:1fr}}
+.tot{display:flex;justify-content:space-between;align-items:baseline;padding-top:12px;border-top:2px solid var(--ink)}
+.tot strong{font-family:var(--f-display);font-size:1.8rem;font-weight:600;font-variant-numeric:tabular-nums}
+.err{color:#B3261E;font-weight:700;font-size:.88rem}
+.done pre{white-space:pre-wrap;font-family:var(--f-body);font-size:.9rem;background:var(--surface);border:1px solid var(--line);padding:14px;border-radius:14px;margin:0;max-height:280px;overflow:auto}
+.lb{width:min(1100px,calc(100vw - 24px));height:min(86dvh,900px);background:var(--surface);border-radius:24px;position:relative;overflow:hidden;display:grid}
+.lb .ph{border-radius:0;height:100%}
+.lb .ph>img{object-fit:contain;background:var(--surface-2)}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:4;width:52px;height:52px;border-radius:50%;border:0;background:var(--surface);box-shadow:var(--shadow);cursor:pointer;display:grid;place-items:center}
+.lb-prev{left:14px}.lb-next{right:14px}
+.lb-cap{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:4;background:var(--surface);padding:8px 16px;border-radius:999px;font-weight:700;font-size:.9rem;box-shadow:var(--shadow);white-space:nowrap;max-width:90%;overflow:hidden;text-overflow:ellipsis}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="strip"><div class="wrap">
+    <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span data-i18n="strip.1">Osobný odber v Dunajskej Strede</span></span>
+    <span class="s2" data-i18n="strip.2">Torty neposielame, aby sa k vám dostali v perfektnom stave</span>
+  </div></div>
+  <div class="wrap">
+    <div class="hdr">
+      <a href="#top" class="logo" aria-label="LENZ baby – domov"><img src="img/logo.webp" alt="LENZ baby" width="93" height="46"></a>
+      <nav class="nav" aria-label="Hlavná navigácia">
+        <a href="#torty" data-i18n="nav.cakes">Torty</a>
+        <a href="#na-zelanie" data-i18n="nav.custom">Na želanie</a>
+        <a href="#ako" data-i18n="nav.how">Ako to funguje</a>
+        <a href="#vyzdvihnutie" data-i18n="nav.pickup">Vyzdvihnutie</a>
+        <a href="#o-tvorbe" data-i18n="nav.about">O tvorbe</a>
+        <a href="#kontakt" data-i18n="nav.contact">Kontakt</a>
+      </nav>
+      <div class="hdr-right">
+        <div class="lang" role="group" aria-label="Jazyk">
+          <button type="button" data-lang="sk" aria-pressed="true">SK</button>
+          <button type="button" data-lang="hu" aria-pressed="false" title="Maďarská verzia sa pripravuje">HU</button>
+        </div>
+        <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+        </button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobileNav" hidden aria-label="Mobilná navigácia">
+      <a href="#torty" data-i18n="nav.cakes">Torty</a>
+        <a href="#na-zelanie" data-i18n="nav.custom">Na želanie</a>
+      <a href="#ako" data-i18n="nav.how">Ako to funguje</a>
+      <a href="#vyzdvihnutie" data-i18n="nav.pickup">Vyzdvihnutie</a>
+      <a href="#o-tvorbe" data-i18n="nav.about">O tvorbe</a>
+      <a href="#kontakt" data-i18n="nav.contact">Kontakt</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="deco float" style="left:1%;top:3%" aria-hidden="true"><img src="img/oblak.webp" alt="" width="140" height="97"></div>
+  <div class="deco float d2" style="right:6%;top:7%" aria-hidden="true"><img src="img/hviezda.webp" alt="" width="84" height="81"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow" data-i18n="hero.eyebrow">Plienkové torty · Dunajská Streda</span>
+        <h1 data-i18n="hero.title">Malý zázrak. <em>Veľká radosť.</em></h1>
+        <p class="lead" data-i18n="hero.sub">Ručne tvorené plienkové torty, ktoré potešia na prvý pohľad a poslúžia každý deň. Vyberte si hotovú tortu a vyzdvihnite si ju osobne v Dunajskej Strede.</p>
+          <div class="hero-ctas">
+          <a href="#torty" class="btn btn-primary btn-lg" data-i18n="hero.cta1">Vybrať tortu</a>
+          <a href="#na-zelanie" class="btn btn-ghost btn-lg" data-i18n="hero.cta2">Torta na želanie</a>
+        </div>
+      </div>
+      <figure class="hero-photo" id="heroPhoto">
+        <div class="deco float d3 hp-heart" aria-hidden="true"><img src="img/srdce.webp" alt="" width="70" height="65"></div>
+        <div class="deco float hp-rainbow" aria-hidden="true"><img src="img/duha.webp" alt="" width="150" height="105"></div>
+        <div class="hp-frame"><img id="heroImg" src="fotky/jednorozec-celok.jpg" alt="Plienková torta Ružový jednorožec" width="480" height="640" fetchpriority="high" decoding="async"></div>
+        <button type="button" class="hp-tag" id="heroTag" hidden></button>
+      </figure>
+    </div>
+    <div class="benefits">
+      <div class="benefit"><span class="ico" aria-hidden="true"><img src="img/torta.webp" alt="" width="60" height="60"></span>
+        <div><h3 data-i18n="ben.1.t">Čo vidíte, to dostanete</h3><p data-i18n="ben.1.p">Každá torta na fotke je skutočný hotový kus, nie ilustrácia.</p></div></div>
+      <div class="benefit"><span class="ico" aria-hidden="true"><img src="img/medvedik.webp" alt="" width="60" height="60"></span>
+        <div><h3 data-i18n="ben.2.t">Praktický obsah</h3><p data-i18n="ben.2.p">Plienky, ponožky aj hračky, ktoré rodičia naozaj použijú.</p></div></div>
+      <div class="benefit"><span class="ico" aria-hidden="true"><img src="img/darcek.webp" alt="" width="60" height="60"></span>
+        <div><h3 data-i18n="ben.3.t">Pripravená na darovanie</h3><p data-i18n="ben.3.p">Pekne zabalená a pripravená na odovzdanie.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="torty" style="padding-top:clamp(32px,5vw,64px)">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-i18n="cakes.eyebrow">Ponuka tort</span>
+      <h2 data-i18n="cakes.title">Vyberte si hotovú tortu</h2>
+    </div>
+    <div class="pick" id="pick" role="group" aria-label="Pre koho je torta"></div>
+    <div class="cakes" id="cakes"></div>
+
+    <div id="soldWrap" class="sold-wrap">
+      <div class="sec-head">
+        <span class="eyebrow" data-i18n="sold.eyebrow">Inšpirácia</span>
+        <h2 data-i18n="sold.title">Už predané. Podobnú vám vyrobíme.</h2>
+        <p class="lead" data-i18n="sold.lead">Nevybrali ste si z hotových? Tieto torty už majú nový domov, no podobnú vám radi vyrobíme na objednávku. Farby, meno aj drobnosti prispôsobíme.</p>
+      </div>
+      <div class="cakes" id="sold"></div>
+      <div class="sold-more" id="soldMore"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="na-zelanie" style="padding-top:0">
+  <div class="wrap">
+    <div class="custom">
+      <div class="deco float d2" style="right:22px;top:-26px" aria-hidden="true"><img src="img/hviezda.webp" alt="" width="58" height="56"></div>
+      <div class="custom-copy">
+        <img src="img/darcek.webp" alt="" aria-hidden="true" width="72" height="73" style="width:72px;height:auto">
+        <span class="eyebrow" data-i18n="custom.eyebrow">Torta na želanie</span>
+        <h2 data-i18n="custom.title">Máte vlastnú predstavu?</h2>
+        <p class="lead" data-i18n="custom.lead">Povedzte nám orientačný rozpočet a pre koho je torta. Ozveme sa vám telefonicky a spolu doladíme farby, tému aj obsah.</p>
+        <ol class="custom-steps">
+          <li data-i18n="custom.s1">Vyplníte krátku žiadosť, zaberie to minútu.</li>
+          <li data-i18n="custom.s2">Zavoláme vám a dohodneme detaily aj cenu.</li>
+          <li data-i18n="custom.s3">Tortu vyrobíme a odovzdáme v Dunajskej Strede.</li>
+        </ol>
+        <div id="customCall"></div>
+      </div>
+      <form class="res" id="customForm" novalidate></form>
+    </div>
+  </div>
+</section>
+
+<section class="section band" id="ako">
+  <div class="deco float d2" style="right:-24px;top:36px" aria-hidden="true"><img src="img/duha.webp" alt="" width="170" height="119"></div>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-i18n="how.eyebrow">Ako to funguje</span>
+      <h2 data-i18n="how.title">Štyri kroky, žiadna registrácia</h2>
+    </div>
+    <ol class="how">
+      <li><span class="n" style="background:var(--blush)">1</span><h3 data-i18n="how.1.t">Vyberiete tortu</h3><p data-i18n="how.1.p">Všetky torty v ponuke sú hotové. Pri každej vidíte presný obsah a cenu.</p></li>
+      <li><span class="n" style="background:var(--lilac)">2</span><h3 data-i18n="how.2.t">Rezervujete si ju</h3><p data-i18n="how.2.p">Meno, telefón a deň vyzdvihnutia. Zaberie to menej ako minútu.</p></li>
+      <li><span class="n" style="background:var(--sage)">3</span><h3 data-i18n="how.3.t">Potvrdíme rezerváciu</h3><p data-i18n="how.3.p">Ozveme sa vám SMS-kou alebo telefonicky a pošleme presné miesto odovzdania.</p></li>
+      <li><span class="n" style="background:var(--butter)">4</span><h3 data-i18n="how.4.t">Vyzdvihnete si ju</h3><p data-i18n="how.4.p">V Dunajskej Strede, vo zvolenom čase. Zaplatíte pri prevzatí.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" id="vyzdvihnutie" style="position:relative;overflow:hidden">
+  <div class="deco float d3" style="left:-40px;bottom:40px" aria-hidden="true"><img src="img/oblak.webp" alt="" width="130" height="90"></div>
+  <div class="wrap pickup">
+    <div class="pk-copy">
+      <span class="eyebrow" data-i18n="pk.eyebrow">Vyzdvihnutie</span>
+      <h2 data-i18n="pk.title">Odovzdávame osobne, v pevných časoch</h2>
+      <p class="lead" data-i18n="pk.lead">Plienková torta je jemná ručná práca a preprava v balíku by jej uškodila. Preto ju odovzdávame osobne v Dunajskej Strede, presne takú, ako je na fotke.</p>
+      <div class="windows" id="windows"></div>
+      <p class="note" data-i18n="pk.note">Potrebujete iný čas? Napíšte nám, ak sa dá, radi sa prispôsobíme.</p>
+    </div>
+    <div class="facts" id="facts"></div>
+  </div>
+</section>
+
+<section class="section band" id="o-tvorbe">
+  <div class="deco float" style="right:3%;top:30px" aria-hidden="true"><img src="img/hviezda.webp" alt="" width="54" height="52"></div>
+  <div class="wrap about">
+    <div id="aboutPhoto"></div>
+    <div class="about-copy">
+      <span class="eyebrow" data-i18n="about.eyebrow">O tvorbe</span>
+      <h2 data-i18n="about.title">Darček pre malého človeka, vytvorený s veľkou pozornosťou</h2>
+      <p data-i18n="about.p1">LENZ baby je detská vetva dizajnovej značky LENZdesign. Aj tu platí to, čo pri všetkom, čo tvoríme: čisté tvary, premyslené farby a poctivá ručná práca.</p>
+      <p data-i18n="about.p2">Torty tvoríme v menších sériách. Každú skladáme ručne a ladíme do posledného detailu. Keď je torta hotová, odfotíme ju a pridáme do ponuky. To, čo vidíte, si aj odnesiete.</p>
+      <p data-i18n="about.p3">Do tort dávame veci, ktoré rodičia naozaj použijú, nie ozdoby na jedno použitie.</p>
+      <p class="sig" data-i18n="about.sig">S láskou, LENZ baby</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow" data-i18n="faq.eyebrow">Časté otázky</span><h2 data-i18n="faq.title">Čo sa nás ľudia pýtajú</h2></div>
+    <div class="faq">
+      <details><summary><span data-i18n="faq.1.q">Posielate torty kuriérom?</span><span class="pm" aria-hidden="true">+</span></summary>
+        <div class="a"><p data-i18n="faq.1.a">Nie. Torty odovzdávame iba osobne v Dunajskej Strede, aby sa pri preprave nepoškodili. Vyzdvihnúť si ich môžete vo výdajných časoch alebo po dohode.</p></div></details>
+      <details><summary><span data-i18n="faq.2.q">Akú veľkosť plienok majú torty?</span><span class="pm" aria-hidden="true">+</span></summary>
+        <div class="a"><p data-i18n="faq.2.a">Pri každej torte je uvedená značka aj veľkosť plienok. Najčastejšie používame veľkosť 2 (3–6 kg), z ktorej bábätko nevyrastie hneď v prvých týždňoch. Ak potrebujete inú veľkosť, napíšte nám a radi sa prispôsobíme.</p></div></details>
+      <details><summary><span data-i18n="faq.3.q">Dá sa do torty ukryť malý darček?</span><span class="pm" aria-hidden="true">+</span></summary>
+        <div class="a"><p data-i18n="faq.3.a">Niektoré torty majú darčekovú krabičku na malý vlastný darček, napríklad retiazku alebo náušnice. Obľúbená je najmä u krstných rodičov. Ak ju torta má, nájdete ju v obsahu a je už zahrnutá v cene. Obsah krabičky vkladáte vy.</p></div></details>
+      <details><summary><span data-i18n="faq.4.q">Ako dlho platí rezervácia?</span><span class="pm" aria-hidden="true">+</span></summary>
+        <div class="a"><p id="faqHold" data-i18n="faq.4.a">Rezervácia platí po našom potvrdení. Tortu vám potom držíme do zvoleného dňa vyzdvihnutia.</p></div></details>
+      <details><summary><span data-i18n="faq.5.q">Dá sa na tortu napísať meno dieťatka?</span><span class="pm" aria-hidden="true">+</span></summary>
+        <div class="a"><p data-i18n="faq.5.a">Áno, na požiadanie. Napíšte meno do poznámky pri rezervácii a my sa vám ozveme s potvrdením.</p></div></details>
+      <details><summary><span data-i18n="faq.6.q">Ako sa platí?</span><span class="pm" aria-hidden="true">+</span></summary>
+        <div class="a"><p id="faqPay" data-i18n="faq.6.a">Pri vyzdvihnutí.</p></div></details>
+      <details><summary><span data-i18n="faq.7.q">Páči sa mi torta, ktorá je už predaná. Dá sa objednať?</span><span class="pm" aria-hidden="true">+</span></summary>
+        <div class="a"><p data-i18n="faq.7.a">Áno. Pri predanej torte kliknite na „Chcem podobnú“ a vyplňte krátku objednávku. Vyrobíme vám podobnú tortu, farby aj meno prispôsobíme. Rovnaká úplne nebude, každá torta je ručná práca.</p></div></details>
+      <details><summary><span data-i18n="faq.8.q">Môžem si tortu navrhnúť úplne podľa seba?</span><span class="pm" aria-hidden="true">+</span></summary>
+        <div class="a"><p data-i18n="faq.8.a">Áno. V časti <a href="#na-zelanie">Torta na želanie</a> vyberte orientačný rozpočet a nechajte nám telefón. Zavoláme vám a spolu doladíme farby, tému aj obsah.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<section class="section band" id="kontakt">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow" data-i18n="contact.eyebrow">Kontakt</span><h2 data-i18n="contact.title">Máte otázku? Napíšte nám</h2></div>
+    <div class="contact">
+      <div class="c-card" id="contactCard"></div>
+      <div class="c-card">
+        <img src="img/darcek.webp" alt="" aria-hidden="true" width="72" height="73" style="width:72px;height:auto">
+        <h3 data-i18n="contact.t">Nové torty pribúdajú v sériách</h3>
+        <p class="note" data-i18n="contact.p">Keď je hotová nová séria, pridáme ju do ponuky a ukážeme na sociálnych sieťach. Sledujte nás, nech vám neujde.</p>
+        <div><a href="#torty" class="btn btn-primary" data-i18n="hero.cta1">Vybrať tortu</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap foot">
+  <a href="#top" class="logo" aria-label="LENZ baby"><img src="img/logo.webp" alt="LENZ baby" width="93" height="46"></a>
+  <span data-i18n="foot.line">Ručne tvorené plienkové torty · osobný odber v Dunajskej Strede</span>
+</div></footer>
+
+<dialog id="soldDlg" aria-labelledby="soldDlgTitle">
+  <div class="dlg">
+    <div class="sold-dlg-head">
+      <button class="dlg-close" type="button" data-close aria-label="Zavrieť"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <span class="eyebrow" data-i18n="sold.eyebrow">Inšpirácia</span>
+      <h2 id="soldDlgTitle" data-i18n="soldAll.title">Všetky predané torty</h2>
+      <div class="sold-filter" id="soldFilter" role="group" aria-label="Pre koho"></div>
+      <span class="hint" id="soldCount"></span>
+    </div>
+    <div class="cakes sold-all-grid" id="soldAllGrid"></div>
+  </div>
+</dialog>
+
+<dialog id="detailDlg" aria-labelledby="detailTitle">
+  <div class="dlg">
+    <button class="dlg-close" type="button" data-close aria-label="Zavrieť"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div id="detailBody"></div>
+  </div>
+</dialog>
+
+<dialog id="lbDlg" aria-label="Zväčšená fotografia">
+  <div class="lb">
+    <div id="lbStage" style="height:100%"></div>
+    <button class="lb-nav lb-prev" type="button" id="lbPrev" aria-label="Predchádzajúca"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <button class="lb-nav lb-next" type="button" id="lbNext" aria-label="Ďalšia"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
+    <button class="dlg-close" type="button" data-close aria-label="Zavrieť"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="lb-cap" id="lbCap"></div>
+  </div>
+</dialog>
+
+<script>
+/* =====================================================================
+   NASTAVENIA – tu sa upravujú torty, ceny, výdajné časy a kontakty.
+   Na webe sú vždy len aktuálne hotové torty. Predanú tortu zo zoznamu
+   jednoducho vymažte, novú pridajte skopírovaním jedného záznamu.
+   Hodnoty označené PRACOVNÉ sú návrhy na overenie.
+   Fotky: priečinok „fotky/“, názvy podľa id torty (napr. fotky/t01-hlavna.jpg).
+   ===================================================================== */
+const CONFIG = {
+  formEndpoint: "",          // adresa služby na formuláre (napr. Formspree); prázdne = rezervácia sa zobrazí na skopírovanie
+  contact: { phone: "", email: "", instagram: "", facebook: "", place: "Dunajská Streda" },
+  photos: { about: "fotky/tvorba.jpg" },
+  // Torta na úvodnej fotke. Fotku meníte v HTML (id="heroImg") aj v <link rel="preload"> v hlavičke.
+  // Ak torta s týmto id už nie je v ponuke alebo je predaná, štítok s cenou sa skryje a fotka ostane len ako ukážka tvorby.
+  heroCake: "t05",
+  payment: "Pri vyzdvihnutí.",              // DOPLNIŤ – napr. „Pri vyzdvihnutí v hotovosti alebo prevodom vopred.“
+  confirmWithin: "do 24 hodín",              // PRACOVNÉ – za koľko potvrdíte rezerváciu
+  // Výdajné okná. day: 1 = pondelok … 6 = sobota, 0 = nedeľa. PRACOVNÉ
+  pickupWindows: [
+    { day: 1, time: "16:30 – 20:00" },
+    { day: 2, time: "16:30 – 20:00" },
+    { day: 3, time: "16:30 – 20:00" },
+    { day: 4, time: "16:30 – 20:00" },
+    { day: 5, time: "16:30 – 20:00" },
+    { day: 6, time: "po dohode vopred" }   // bez pevného času – text sa zobrazí namiesto hodín
+  ],
+  closedDates: [],            // dni bez výdaja, napr. ["2026-12-24", "2026-12-26"]
+  slotsShown: 8,              // koľko najbližších termínov ponúknuť
+  minDays: 1,                 // najskôr o koľko dní od rezervácie
+  orderLeadDays: 7,           // PRACOVNÉ – koľko dní vopred treba objednať tortu na želanie (podobnú alebo vlastnú)
+  // Torta na želanie – orientačné rozpočty (PRACOVNÉ, upravte podľa seba)
+  budgets: [
+    { id: "b45",  name: "Malá pozornosť", from: 45,  desc: "30 plienok, ponožky, jemné zdobenie a darčekové balenie" },
+    { id: "b69",  name: "Tak akurát",     from: 69,  desc: "50 plienok, menší plyšák, ponožky a darčekové balenie", tag: "Zlatá stredná cesta" },
+    { id: "b99",  name: "Veľká radosť",   from: 99,  desc: "75 plienok, plyšák, látková plienka, menovka a balenie" },
+    { id: "b139", name: "Slávnostný dar", from: 139, desc: "100–120 plienok, väčší plyšák, bohatšie zdobenie, personalizácia a balenie" }
+  ],
+  colors: {
+    girl:    { dot: "#F4A9B8" },
+    boy:     { dot: "#9CC4E6" },
+    neutral: { dot: "#B7CC9C" }
+  },
+  /* Darčeková krabička: ak ju torta má, uveďte ju v contents a zarátajte do price.
+     Prázdne údaje (null alebo "") sa na stránke nezobrazia. Bez ceny sa ukáže „Cenu doplníme“.
+     Názvy tort sú PRACOVNÉ – pokojne ich premenujte.
+     photos: zoznam fotiek; prvá je hlavná. Odporúčané poradie: štúdiová, s modelom, zabalená.
+     PREDANÁ TORTA: nemažte ju, len doplňte  sold: true
+       → zmizne z hotových tort a presunie sa do sekcie „Inšpirácia“,
+         kde si ju zákazník môže objednať ako podobnú tortu na želanie. Fotky ostávajú tam, kde sú.
+         Pri predanej torte sa zobrazí len PRVÁ fotka zo zoznamu photos (štúdiová), ostatné sa skryjú.
+       Namiesto true môžete napísať dátum predaja, napr.  sold: "2026-11-12"
+       → na stránke sú vždy len 3 naposledy predané, ostatné sú pod tlačidlom „Pozrieť všetky“.
+         Poradie: podľa dátumu (najnovšie prvé); torty bez dátumu podľa poradia v zozname (nižšie = novšie).
+       Predanú tortu, ktorú už nechcete ukazovať ani ako inšpiráciu, vymažte. */
+  cakes: [
+    // ---- Nové torty (fotky 11/2026). DOPLNIŤ: price, diapers, brand, size, contents, dims ----
+    { id: "t08", name: "Ružová motorka",      color: "girl",    colorName: "ružová a mätová", price: null,
+      diapers: null, brand: "", size: "", contents: [], dims: "", packaging: "Celofán a stuha",
+      photos: [ { src: "fotky/motorka-studio.jpg",   label: "Torta" },
+                { src: "fotky/motorka-studio-2.jpg", label: "Z druhej strany" },
+                { src: "fotky/motorka-model.jpg",    label: "Pre predstavu veľkosti" },
+                { src: "fotky/motorka-zabalena.jpg", label: "Zabalená" } ] },
+    { id: "t09", name: "Ružový zámok",        color: "girl",    colorName: "ružová", price: null,
+      diapers: null, brand: "", size: "", contents: [], dims: "", packaging: "Celofán a stuha",
+      photos: [ { src: "fotky/zamok-studio.jpg",   label: "Torta" },
+                { src: "fotky/zamok-model.jpg",    label: "Pre predstavu veľkosti" },
+                { src: "fotky/zamok-zabalena.jpg", label: "Zabalená" } ] },
+    { id: "t10", name: "Teplovzdušný balón",  color: "neutral", colorName: "béžová a biela", price: null,
+      diapers: null, brand: "", size: "", contents: [], dims: "", packaging: "Celofán a stuha",
+      photos: [ { src: "fotky/balon-studio.jpg",   label: "Torta" },
+                { src: "fotky/balon-model.jpg",    label: "Pre predstavu veľkosti" },
+                { src: "fotky/balon-zabalena.jpg", label: "Zabalená" } ] },
+    { id: "t11", name: "Zajačik v modrom",    color: "boy",     colorName: "modrá a béžová", price: null,
+      diapers: null, brand: "", size: "", contents: [], dims: "", packaging: "Celofán a stuha",
+      photos: [ { src: "fotky/zajacik-studio.jpg",   label: "Torta" },
+                { src: "fotky/zajacik-model.jpg",    label: "Pre predstavu veľkosti" },
+                { src: "fotky/zajacik-zabalena.jpg", label: "Zabalená" } ] },
+    { id: "t12", name: "Slnečnica",           color: "neutral", colorName: "žltá a zelená", price: null,
+      diapers: null, brand: "", size: "", contents: [], dims: "", packaging: "Celofán a stuha",
+      photos: [ { src: "fotky/slnecnica-studio.jpg",   label: "Torta" },
+                { src: "fotky/slnecnica-model.jpg",    label: "Pre predstavu veľkosti" },
+                { src: "fotky/slnecnica-zabalena.jpg", label: "Zabalená" } ] },
+    { id: "t13", name: "Tyrkysová stuha",     color: "boy",     colorName: "tyrkysová a biela", price: null,
+      diapers: null, brand: "", size: "", contents: [], dims: "", packaging: "Celofán a stuha",
+      photos: [ { src: "fotky/modra-stuha-studio.jpg",   label: "Torta" },
+                { src: "fotky/modra-stuha-model.jpg",    label: "Pre predstavu veľkosti" },
+                { src: "fotky/modra-stuha-zabalena.jpg", label: "Zabalená" } ] },
+    // ---- Predané ----
+    { id: "t05", name: "Ružový jednorožec",   color: "girl",    colorName: "malinová a púdrová ružová", price: 119, sold: true,
+      diapers: 100, brand: "", size: "2 (3–6 kg)", contents: ["Plyšový jednorožec", "Písmená z korálok", "Látkové kvety", "Saténové a organzové mašle"], dims: "cca 35 × 55 cm, 4 poschodia", packaging: "Celofán a stuha",
+      photos: [ { src: "fotky/jednorozec-studio.jpg", label: "Torta" },
+                { src: "fotky/jednorozec-celok.jpg",  label: "Celok" },
+                { src: "fotky/jednorozec-hracka.jpg", label: "Jednorožec" },
+                { src: "fotky/jednorozec-detail.jpg", label: "Písmená z korálok" },
+                { src: "fotky/jednorozec-masle.jpg",  label: "Mašle a kvety" } ] },
+    { id: "t14", name: "Žltý psík",           color: "neutral", colorName: "žltá, zelená a biela", price: null, sold: true,
+      diapers: null, brand: "", size: "", contents: [], dims: "", packaging: "",
+      photos: [ { src: "fotky/psik-studio.jpg", label: "Torta" } ] }
+  ]
+};
+
+/* PREKLADY – slovenčina sa číta z HTML (data-i18n) a z I18N.sk. Maďarčinu doplňte do I18N.hu. */
+const I18N = {
+  sk: {
+    view: "Pozrieť a rezervovať", ready: "Hotová",
+    sold: "Predaná", similar: "Chcem podobnú", fromApprox: "podobná od",
+    priceTbd: "Cenu doplníme",
+    soldAll: "Pozrieť všetky predané", sfAll: "Všetky", soldCount: "Počet tort: {n}",
+    noneSold: "Pre tento výber zatiaľ nemáme predané torty na inšpiráciu.",
+    s_title: "Objednať podobnú tortu", s_intro: "Túto tortu už má niekto doma. Podobnú vám radi vyrobíme na objednávku. Farby, meno aj drobnosti prispôsobíme a cenu potvrdíme pri hovore.",
+    s_when: "Kedy ju potrebujete", s_whenHint: "Najskôr o {n} dní. Presný termín potvrdíme telefonicky.",
+    s_change:"Čo chcete zmeniť (nepovinné)", s_changePh: "napr. modré farby namiesto ružových, meno Tomáško",
+    s_total: "Orientačná cena", s_send: "Objednať podobnú",
+    s_legal: "Objednávka je nezáväzná. Ozveme sa vám {c}, doladíme detaily a potvrdíme cenu aj termín.",
+    s_term: "Na objednávku, približne {n} dní", e_date: "Vyberte, kedy tortu potrebujete.",
+    ok_tReq: "Ďakujeme! Požiadavka je pripravená",
+    ok_req: "Ďakujeme! Požiadavku sme prijali. Ozveme sa vám {c}.",
+    ok_reqManual: "Pošlite nám, prosím, toto zhrnutie SMS-kou alebo e-mailom. Ozveme sa vám {c}.",
+    c_budget: "Rozpočet", c_for: "Pre koho", c_forOpts: { girl: "Dievčatko", boy: "Chlapček", neutral: "Neutrálne / zatiaľ nevieme" },
+    c_when: "Kedy ju potrebujete (nepovinné)", c_note: "Vaša predstava (nepovinné)", c_notePh: "napr. jednorožec, pastelové farby, meno Ema, krabička na retiazku",
+    c_send: "Zavolajte mi", c_call: "Alebo nám rovno zavolajte", c_legal: "Nezáväzné. Ozveme sa vám {c} a všetko doladíme telefonicky. Tortu na želanie zvyčajne vyrobíme za 2 až 5 dní.",
+    e_budget: "Vyberte orientačný rozpočet.",
+    none: "Momentálne nemáme hotovú tortu. Nová séria je na ceste, sledujte nás.",
+    noneMode: "Pre tento výber teraz nemáme hotovú tortu. Pozrite si všetky torty alebo nám napíšte.",
+    pickGirl: "Pre dievčatko", pickBoy: "Pre chlapčeka", pickAll: "Zobraziť všetky",
+    d_diapers: "Plienky", d_other: "Ďalší obsah", d_dims: "Približné rozmery", d_pack: "Balenie", d_color: "Farby", d_term: "Vyzdvihnutie",
+    d_termVal: "Hotová. Vyzdvihnutie najbližší výdajný deň.",
+    d_gal: ["Celok", "Detail", "Mašle", "Kvety", "Hračka"], d_photo: "Fotografie zobrazujú presne túto tortu.",
+    r_title: "Rezervácia", r_slot: "Kedy si ju vyzdvihnete",
+    r_you: "Vaše meno", r_phone: "Telefón", r_note: "Poznámka (nepovinné)", r_noteHint: "Meno dieťatka na tortu doplníme na požiadanie, napíšte ho sem.", r_total: "Spolu", r_send: "Rezervovať tortu",
+    r_legal: "Platí sa pri vyzdvihnutí. Rezervácia platí po našom potvrdení ({c}).",
+    e_slot: "Vyberte termín vyzdvihnutia.", e_name: "Napíšte vaše meno.", e_phone: "Napíšte telefón, aby sme sa vám mohli ozvať.",
+    ok_t: "Ďakujeme! Rezervácia je pripravená", ok_sent: "Rezerváciu sme prijali. Potvrdíme ju {c} a pošleme presné miesto odovzdania.",
+    ok_manual: "Pošlite nám, prosím, toto zhrnutie SMS-kou alebo e-mailom. Rezerváciu potvrdíme {c}.", ok_copy: "Skopírovať", ok_copied: "Skopírované",
+    ph: "Sem patrí fotografia", days: ["nedeľa","pondelok","utorok","streda","štvrtok","piatok","sobota"], daysShort: ["Ne","Po","Ut","St","Št","Pi","So"],
+    f_place: "Miesto", f_placeV: "Dunajská Streda. Presnú adresu pošleme pri potvrdení.", f_pay: "Platba", f_area: "Pre koho",
+    f_areaV: "Pre zákazníkov z okresu Dunajská Streda, ktorí si tortu vyzdvihnú osobne.", f_ready: "Kedy najskôr", f_readyV: "Na druhý deň po rezervácii vo výdajnom čase. Ak vám žiadny termín nevyhovuje, radi sa dohodneme na inom.",
+    f_name: "Meno na torte", f_nameV: "Na požiadanie. Stačí ho napísať do poznámky pri rezervácii.",
+    ct_phone: "Telefón", ct_email: "E-mail", ct_ig: "Instagram", ct_fb: "Facebook", ct_place: "Osobný odber", ct_todo: "doplníme",
+    faqHold: "Rezervácia platí po našom potvrdení, ktoré pošleme {c}. Tortu vám potom držíme do zvoleného dňa vyzdvihnutia."
+  },
+  hu: {}
+};
+let LANG = "sk"; const DOM_SK = {};
+function t(k, v) { let s = (I18N[LANG] && I18N[LANG][k]) ?? I18N.sk[k] ?? DOM_SK[k] ?? k; if (v && typeof s === "string") s = s.replace(/\{(\w+)\}/g, (_, x) => v[x] ?? ""); return s; }
+function applyStaticI18n() { document.querySelectorAll("[data-i18n]").forEach(el => { const k = el.dataset.i18n; if (!(k in DOM_SK)) DOM_SK[k] = el.innerHTML; el.innerHTML = (I18N[LANG] && I18N[LANG][k]) || DOM_SK[k]; }); document.documentElement.lang = LANG; }
+
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const eur = n => n.toLocaleString("sk-SK", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 }) + " €";
+function photo(src, label) {
+  return `<figure class="ph"><img src="${esc(src)}" alt="${esc(label)}" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('miss');this.remove()">
+    <div class="ph-empty"><img class="ph-ill" src="img/torta.webp" alt="" aria-hidden="true"><strong>${esc(t("ph"))}: ${esc(label)}</strong><small>${esc(src)}</small></div></figure>`;
+}
+const SLOTS = ["hlavna", "detail", "masle", "kvety", "hracka"];
+const iso = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+const fmt = d => `${d.getDate()}. ${d.getMonth() + 1}.`;
+const dot = c => (CONFIG.colors[c] || CONFIG.colors.neutral).dot;
+
+/* ---------- cakes ---------- */
+let MODE = null; // "girl" | "boy" | null – neutrálne torty sa zobrazia v oboch
+function renderPick() {
+  $("#pick").innerHTML = `
+    <button type="button" class="pick-btn pick-girl" data-mode="girl" aria-pressed="${MODE === "girl"}"><img src="img/srdce.webp" alt="" aria-hidden="true" width="40" height="37">${t("pickGirl")}</button>
+    <button type="button" class="pick-btn pick-boy" data-mode="boy" aria-pressed="${MODE === "boy"}"><img src="img/srdce.webp" alt="" aria-hidden="true" width="40" height="37">${t("pickBoy")}</button>
+    ${MODE ? `<button type="button" class="pick-all" data-mode="">${t("pickAll")}</button>` : ""}`;
+}
+function setMode(m) {
+  MODE = m && m !== MODE ? m : null;
+  if (MODE) document.documentElement.dataset.mode = MODE; else delete document.documentElement.dataset.mode;
+  renderPick(); renderCakes();
+  if (MODE && !C.forWho && !CDONE) { C.forWho = MODE; renderCustom(); }
+}
+const mainPhoto = c => c.photos ? c.photos[0].src : `fotky/${c.id}-hlavna.jpg`;
+const priceTxt = c => c.price ? eur(c.price) : c.sold ? "" : t("priceTbd"); // predaná bez ceny: nič
+const diaperTxt = c => [c.diapers ? `${c.diapers} ks` : "", c.brand, c.size ? "veľ. " + c.size : ""].filter(Boolean).join(" · ");
+const metaPills = c => `<div class="meta"><span class="pill"><span class="dotc" style="background:${dot(c.color)}"></span>${esc(c.colorName)}</span>${c.diapers ? `<span class="pill">${c.diapers} plienok</span>` : ""}</div>`;
+function renderCakes() {
+  const fit = CONFIG.cakes.filter(c => !MODE || c.color === MODE || c.color === "neutral")
+    .sort((a, b) => (!!b.photos - !!a.photos) || (a.price || 1e6) - (b.price || 1e6));
+  const ready = fit.filter(c => !c.sold);
+  $("#cakes").innerHTML = ready.length ? ready.map(c => `<article class="cake">
+      <button type="button" class="cake-ph" data-detail="${c.id}" aria-label="${esc(c.name)}">${photo(mainPhoto(c), c.name)}</button>
+      <div class="cake-body">
+        <div class="cake-top"><h3>${esc(c.name)}</h3><span class="price num">${priceTxt(c)}</span></div>
+        ${metaPills(c)}
+        ${(() => { const li = [[c.brand, c.size ? "veľ. " + c.size : ""].filter(Boolean).join(", "), ...(c.contents || [])].filter(Boolean);
+          return li.length ? `<ul>${li.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""; })()}
+        <button type="button" class="btn btn-primary" data-detail="${c.id}">${t("view")}</button>
+      </div></article>`).join("") : `<p class="empty">${t(MODE ? "noneMode" : "none")}</p>`;
+  // Inšpirácia – predané torty. Na stránke len posledné 3, ostatné v okne „Pozrieť všetky“.
+  // Ak žiadne predané nie sú vôbec, celá časť sa skryje.
+  const sold = soldList(MODE), all = soldList(null);
+  $("#soldWrap").hidden = !all.length;
+  $("#sold").innerHTML = sold.length ? sold.slice(0, SOLD_SHOWN).map(soldCard).join("") : `<p class="empty">${t("noneSold")}</p>`;
+  $("#soldMore").innerHTML = all.length > SOLD_SHOWN || sold.length < all.length
+    ? `<button type="button" class="btn btn-soft" data-sold-all>${t("soldAll")} <span class="count num">${all.length}</span></button>` : "";
+}
+const SOLD_SHOWN = 3;
+// Predané torty od najnovšej: podľa dátumu v sold, inak podľa poradia v zozname (nižšie = novšie).
+function soldList(mode) {
+  return CONFIG.cakes.map((c, i) => ({ c, i })).filter(x => x.c.sold && (!mode || x.c.color === mode || x.c.color === "neutral"))
+    .sort((a, b) => {
+      const da = typeof a.c.sold === "string" ? a.c.sold : "", db = typeof b.c.sold === "string" ? b.c.sold : "";
+      return da !== db ? (db > da ? 1 : -1) : b.i - a.i;
+    }).map(x => x.c);
+}
+const soldCard = c => `<article class="cake cake-sold">
+      <button type="button" class="cake-ph" data-detail="${c.id}" aria-label="${esc(c.name)}">${photo(mainPhoto(c), c.name)}<span class="sold-badge">${t("sold")}</span></button>
+      <div class="cake-body">
+        <div class="cake-top"><h3>${esc(c.name)}</h3><span class="price num">${c.price ? `<small>${t("fromApprox")}</small> ` : ""}${priceTxt(c)}</span></div>
+        ${metaPills(c)}
+        <button type="button" class="btn btn-ghost" data-detail="${c.id}">${t("similar")}</button>
+      </div></article>`;
+/* Okno so všetkými predanými tortami + vlastný filter dievčatko/chlapček */
+let SOLD_MODE = null;
+function renderSoldAll() {
+  const list = soldList(SOLD_MODE);
+  const f = (m, label) => `<button type="button" class="sf-btn" data-sold-mode="${m}" aria-pressed="${(SOLD_MODE || "") === m}">${label}</button>`;
+  $("#soldFilter").innerHTML = f("", t("sfAll")) + f("girl", t("pickGirl")) + f("boy", t("pickBoy"));
+  $("#soldAllGrid").innerHTML = list.length ? list.map(soldCard).join("") : `<p class="empty">${t("noneSold")}</p>`;
+  $("#soldCount").textContent = t("soldCount", { n: list.length });
+}
+function openSoldAll() {
+  SOLD_MODE = MODE; renderSoldAll();
+  $("#soldDlg").showModal(); $("#soldDlg .dlg").scrollTop = 0;
+}
+
+/* ---------- pickup slots ---------- */
+function slots() {
+  const out = []; const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + CONFIG.minDays);
+  for (let i = 0; i < 60 && out.length < CONFIG.slotsShown; i++) {
+    const w = CONFIG.pickupWindows.find(x => x.day === d.getDay());
+    if (w && !CONFIG.closedDates.includes(iso(d))) out.push({ id: iso(d), date: new Date(d), time: w.time });
+    d.setDate(d.getDate() + 1);
+  }
+  return out;
+}
+
+/* ---------- detail + reservation ---------- */
+let CUR = null, R = {}, LB = { items: [], i: 0 }, DONE = null;
+const leadDate = () => { const d = new Date(); d.setDate(d.getDate() + CONFIG.orderLeadDays); return iso(d); };
+const fmtIso = s => { const [y, m, d] = s.split("-"); return `${+d}. ${+m}. ${y}`; };
+function openDetail(id) {
+  CUR = CONFIG.cakes.find(c => c.id === id); DONE = null;
+  R = { slot: "", date: "", cname: R.cname || "", phone: R.phone || "", note: "" };
+  renderDetail(); $("#detailDlg").showModal(); $("#detailDlg .dlg").scrollTop = 0;
+}
+function total() { return CUR.price; }
+function renderDetail() {
+  const c = CUR, labels = t("d_gal");
+  let raw = c.photos || SLOTS.map((s, i) => ({ src: `fotky/${c.id}-${s}.jpg`, label: labels[i] }));
+  if (c.sold) raw = raw.slice(0, 1); // predaná torta: len prvá (štúdiová) fotka
+  LB.items = raw.map(x => ({ src: x.src, label: `${c.name}: ${x.label}`, short: x.label }));
+  $("#detailBody").innerHTML = `<div class="detail">
+    <div class="gal">
+      <button type="button" class="gal-main" data-lb="0" aria-label="Zväčšiť fotografiu">${photo(LB.items[0].src, LB.items[0].label)}</button>
+      <div class="gal-thumbs">${LB.items.slice(1).map((it, i) => `<button type="button" data-lb="${i + 1}" aria-label="Zväčšiť: ${esc(it.short)}">${photo(it.src, it.short)}</button>`).join("")}</div>
+      <p class="note">${t("d_photo")}</p>
+    </div>
+    <div class="side">
+      ${c.sold ? `<span class="sold-badge static">${t("sold")}</span>` : ""}
+      <h2 id="detailTitle">${esc(c.name)}</h2>
+      <div class="price num" style="font-size:1.6rem">${c.sold && c.price ? `<small style="font-size:.6em;color:var(--muted)">${t("fromApprox")}</small> ` : ""}${priceTxt(c)}</div>
+      <dl class="specs">${[
+        [t("d_diapers"), diaperTxt(c)],
+        [t("d_other"), (c.contents || []).join(", ")],
+        [t("d_color"), c.colorName],
+        [t("d_dims"), c.dims],
+        [t("d_pack"), c.packaging],
+        [t("d_term"), c.sold ? t("s_term", { n: CONFIG.orderLeadDays }) : t("d_termVal")]
+      ].filter(r => r[1]).map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join("")}
+      </dl>
+      <form class="res" id="resForm" novalidate>
+        ${DONE ? doneHtml() : c.sold ? `
+        <h3>${t("s_title")}</h3>
+        <p class="hint">${t("s_intro")}</p>
+        <div class="field"><label for="r-date">${t("s_when")}</label>
+          <input type="date" id="r-date" min="${leadDate()}" value="${esc(R.date)}">
+          <span class="err" id="e-date" hidden></span></div>
+        <div class="row2">
+          <div class="field"><label for="r-cname">${t("r_you")}</label><input type="text" id="r-cname" autocomplete="name" value="${esc(R.cname)}"><span class="err" id="e-cname" hidden></span></div>
+          <div class="field"><label for="r-phone">${t("r_phone")}</label><input type="tel" id="r-phone" autocomplete="tel" inputmode="tel" placeholder="+421" value="${esc(R.phone)}"><span class="err" id="e-phone" hidden></span></div>
+        </div>
+        <div class="field"><label for="r-note">${t("s_change")}</label><input type="text" id="r-note" value="${esc(R.note)}" placeholder="${esc(t("s_changePh"))}"></div>
+        ${c.price ? `<div class="tot"><span style="font-weight:800">${t("s_total")}</span><strong><small style="font-size:.5em">${t("fromApprox")}</small> ${priceTxt(c)}</strong></div>` : ""}
+        <button type="submit" class="btn btn-primary">${t("s_send")}</button>
+        <p class="hint">${t("s_legal", { c: CONFIG.confirmWithin })}</p>` : `
+        <h3>${t("r_title")}</h3>
+        <div class="field"><span class="lbl">${t("r_slot")}</span>
+          <div class="slots">${slots().map(s => `<label class="slot"><input type="radio" name="slot" value="${s.id}" ${R.slot === s.id ? "checked" : ""}>
+            <b>${t("daysShort")[s.date.getDay()]} ${fmt(s.date)}</b><span>${esc(s.time)}</span></label>`).join("")}</div>
+          <span class="err" id="e-slot" hidden></span></div>
+        <div class="row2">
+          <div class="field"><label for="r-cname">${t("r_you")}</label><input type="text" id="r-cname" autocomplete="name" value="${esc(R.cname)}"><span class="err" id="e-cname" hidden></span></div>
+          <div class="field"><label for="r-phone">${t("r_phone")}</label><input type="tel" id="r-phone" autocomplete="tel" inputmode="tel" placeholder="+421" value="${esc(R.phone)}"><span class="err" id="e-phone" hidden></span></div>
+        </div>
+        <div class="field"><label for="r-note">${t("r_note")}</label><input type="text" id="r-note" value="${esc(R.note)}" placeholder="napr. meno Ema na tortu"><span class="hint">${t("r_noteHint")}</span></div>
+        <div class="tot"><span style="font-weight:800">${t("r_total")}</span><strong id="rTotal">${priceTxt(c)}</strong></div>
+        <button type="submit" class="btn btn-primary">${t("r_send")}</button>
+        <p class="hint">${t("r_legal", { c: CONFIG.confirmWithin })}</p>`}
+      </form>
+    </div></div>`;
+}
+function summaryText() {
+  if (CUR.sold) return ["PODOBNÁ TORTA NA ŽELANIE – LENZ baby", "",
+    `Podľa torty: ${CUR.name} (${CUR.id})${CUR.price ? ` – orientačne od ${eur(CUR.price)}` : ""}`,
+    `Potrebujem: ${R.date ? fmtIso(R.date) : "-"}`,
+    R.note ? `Zmeny: ${R.note}` : null, "",
+    `Meno: ${R.cname}`, `Telefón: ${R.phone}`].filter(x => x !== null).join("\n");
+  const s = slots().find(x => x.id === R.slot);
+  return ["REZERVÁCIA – LENZ baby", "",
+    `Torta: ${CUR.name} (${CUR.id})`,
+    `Spolu: ${priceTxt(CUR)}`, "",
+    s ? `Vyzdvihnutie: ${t("days")[s.date.getDay()]} ${fmt(s.date)} ${s.date.getFullYear()}, ${s.time}` : null,
+    `Meno: ${R.cname}`, `Telefón: ${R.phone}`, R.note ? `Poznámka: ${R.note}` : null].filter(Boolean).join("\n");
+}
+function doneHtml() {
+  const ct = CONFIG.contact;
+  const msg = CUR.sold ? (DONE.sent ? "ok_req" : "ok_reqManual") : (DONE.sent ? "ok_sent" : "ok_manual");
+  return doneBlock(DONE.sent, t(msg, { c: CONFIG.confirmWithin }), summaryText(), CUR.sold);
+}
+function doneBlock(sent, msg, summary, isRequest = true) {
+  const ct = CONFIG.contact;
+  return `<div class="done" style="display:grid;gap:14px"><h3>${t(isRequest ? "ok_tReq" : "ok_t")}</h3>
+    <p>${msg}</p>
+    ${sent ? "" : `<pre>${esc(summary)}</pre>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center"><button type="button" class="btn btn-primary btn-sm" data-copy>${t("ok_copy")}</button>
+      ${ct.phone || ct.email ? `<span class="note" style="user-select:all">${esc([ct.phone, ct.email].filter(Boolean).join(" · "))}</span>` : ""}</div>`}</div>`;
+}
+function validate() {
+  const e = {};
+  if (CUR.sold) { if (!R.date || R.date < leadDate()) e.date = t("e_date"); }
+  else if (!R.slot) e.slot = t("e_slot");
+  if (!R.cname.trim()) e.cname = t("e_name");
+  if (R.phone.replace(/\D/g, "").length < 9) e.phone = t("e_phone");
+  ["slot", "date", "cname", "phone"].forEach(k => { const el = $("#e-" + k); if (el) { el.hidden = !e[k]; el.textContent = e[k] || ""; } });
+  const f = Object.keys(e)[0];
+  if (f) { const el = f === "slot" ? $('#resForm input[name=slot]') : $("#r-" + f); el && el.focus(); }
+  return !f;
+}
+async function post(data) {
+  if (!CONFIG.formEndpoint) return false;
+  try { const r = await fetch(CONFIG.formEndpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(data) }); return r.ok; } catch (x) { return false; }
+}
+async function submitRes() {
+  if (!validate()) return;
+  const sent = await post({ typ: CUR.sold ? "podobna" : "rezervacia", zhrnutie: summaryText(), torta: CUR.id, meno: R.cname, telefon: R.phone, termin: CUR.sold ? R.date : R.slot, cena: total() });
+  DONE = { sent }; renderDetail();
+}
+/* ---------- torta na želanie (žiadosť o zavolanie) ---------- */
+let C = { budget: "", forWho: "", date: "", cname: "", phone: "", note: "" }, CDONE = null;
+function customSummary() {
+  const b = CONFIG.budgets.find(x => x.id === C.budget);
+  return ["VLASTNÁ TORTA – ŽIADOSŤ O ZAVOLANIE – LENZ baby", "",
+    b ? `Rozpočet: ${b.name} (od ${eur(b.from)})` : null,
+    C.forWho ? `Pre koho: ${t("c_forOpts")[C.forWho]}` : null,
+    C.date ? `Potrebujem: ${fmtIso(C.date)}` : null,
+    C.note ? `Predstava: ${C.note}` : null, "",
+    `Meno: ${C.cname}`, `Telefón: ${C.phone}`].filter(x => x !== null).join("\n");
+}
+function renderCustom() {
+  const ct = CONFIG.contact;
+  $("#customCall").innerHTML = ct.phone ? `<p class="hint">${t("c_call")}</p><div><a class="btn btn-soft" href="tel:${esc(ct.phone.replace(/\s/g, ""))}" style="background:var(--surface)">${esc(ct.phone)}</a></div>` : "";
+  if (CDONE) { $("#customForm").innerHTML = doneBlock(CDONE.sent, t(CDONE.sent ? "ok_req" : "ok_reqManual", { c: CONFIG.confirmWithin }), customSummary()); return; }
+  const chip = (name, val, cur, inner, cls = "") => `<label class="slot ${cls}"><input type="radio" name="${name}" value="${val}" ${cur === val ? "checked" : ""}>${inner}</label>`;
+  $("#customForm").innerHTML = `
+    <div class="field"><span class="lbl">${t("c_budget")}</span>
+      <div class="budgets">${CONFIG.budgets.map(b => chip("budget", b.id, C.budget,
+        `<b>${esc(b.name)}</b><span class="bp">od ${eur(b.from)}</span><small>${esc(b.desc)}</small>${b.tag ? `<span class="gold">${esc(b.tag)}</span>` : ""}`, "budget")).join("")}</div>
+      <span class="err" id="ce-budget" hidden></span></div>
+    <div class="field"><span class="lbl">${t("c_for")}</span>
+      <div class="chips">${Object.entries(t("c_forOpts")).map(([k, v]) => chip("forWho", k, C.forWho, `<b>${esc(v)}</b>`)).join("")}</div></div>
+    <div class="row2">
+      <div class="field"><label for="c-cname">${t("r_you")}</label><input type="text" id="c-cname" autocomplete="name" value="${esc(C.cname)}"><span class="err" id="ce-cname" hidden></span></div>
+      <div class="field"><label for="c-phone">${t("r_phone")}</label><input type="tel" id="c-phone" autocomplete="tel" inputmode="tel" placeholder="+421" value="${esc(C.phone)}"><span class="err" id="ce-phone" hidden></span></div>
+    </div>
+    <div class="field"><label for="c-date">${t("c_when")}</label><input type="date" id="c-date" min="${leadDate()}" value="${esc(C.date)}"></div>
+    <div class="field"><label for="c-note">${t("c_note")}</label><textarea id="c-note" placeholder="${esc(t("c_notePh"))}">${esc(C.note)}</textarea></div>
+    <button type="submit" class="btn btn-primary">${t("c_send")}</button>
+    <p class="hint">${t("c_legal", { c: CONFIG.confirmWithin })}</p>`;
+}
+$("#customForm").addEventListener("change", e => {
+  if (e.target.name === "budget" || e.target.name === "forWho") { C[e.target.name] = e.target.value; const er = $("#ce-budget"); if (er && C.budget) er.hidden = true; }
+});
+$("#customForm").addEventListener("input", e => {
+  const m = { "c-cname": "cname", "c-phone": "phone", "c-date": "date", "c-note": "note" }[e.target.id];
+  if (m) { C[m] = e.target.value; const er = $("#ce-" + m); if (er) er.hidden = true; }
+});
+$("#customForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const er = {};
+  if (!C.budget) er.budget = t("e_budget");
+  if (!C.cname.trim()) er.cname = t("e_name");
+  if (C.phone.replace(/\D/g, "").length < 9) er.phone = t("e_phone");
+  ["budget", "cname", "phone"].forEach(k => { const el = $("#ce-" + k); el.hidden = !er[k]; el.textContent = er[k] || ""; });
+  const f = Object.keys(er)[0];
+  if (f) { (f === "budget" ? $('#customForm input[name=budget]') : $("#c-" + f)).focus(); return; }
+  const sent = await post({ typ: "vlastna", zhrnutie: customSummary(), rozpocet: C.budget, preKoho: C.forWho, termin: C.date, meno: C.cname, telefon: C.phone, poznamka: C.note });
+  CDONE = { sent }; renderCustom();
+  $("#customForm").scrollIntoView({ behavior: "smooth", block: "nearest" });
+});
+function lbShow(i) { LB.i = (i + LB.items.length) % LB.items.length; const it = LB.items[LB.i]; $("#lbStage").innerHTML = photo(it.src, it.label); $("#lbCap").textContent = `${it.label} · ${LB.i + 1}/${LB.items.length}`; }
+
+/* ---------- static blocks ---------- */
+function renderPickup() {
+  const order = [1, 2, 3, 4, 5, 6, 0], groups = [];
+  order.forEach(d => { const w = CONFIG.pickupWindows.find(x => x.day === d); if (!w) return;
+    const g = groups[groups.length - 1];
+    if (g && g.time === w.time && order.indexOf(g.to) === order.indexOf(d) - 1) g.to = d; else groups.push({ from: d, to: d, time: w.time }); });
+  $("#windows").innerHTML = groups.map(g => `<div class="win"><span>${(s => s[0].toUpperCase() + s.slice(1))(t("days")[g.from] + (g.to !== g.from ? " – " + t("days")[g.to] : ""))}</span><span>${esc(g.time)}</span></div>`).join("");
+  const ico = p => `<span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg></span>`;
+  const f = (i, b, s) => `<div class="fact">${ico(i)}<div><b>${b}</b><span>${s}</span></div></div>`;
+  $("#facts").innerHTML =
+    f('<path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>', t("f_place"), t("f_placeV")) +
+    f('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>', t("f_ready"), t("f_readyV")) +
+    f('<path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 7l3 3"/>', t("f_name"), t("f_nameV")) +
+    f('<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/>', t("f_pay"), esc(CONFIG.payment)) +
+    f('<circle cx="9" cy="8" r="3.5"/><path d="M3 20a6 6 0 0 1 12 0M16 4a3.5 3.5 0 0 1 0 7M21 20a6 6 0 0 0-4-5.6"/>', t("f_area"), t("f_areaV"));
+}
+function renderHero() {
+  let c = CONFIG.cakes.find(x => x.id === CONFIG.heroCake); const tag = $("#heroTag");
+  if (c && c.sold) c = null; // predaná torta: fotka ostane, štítok s cenou sa skryje
+  tag.hidden = !c;
+  if (c) { tag.dataset.detail = c.id; tag.innerHTML = `${esc(c.name)}${c.price ? ` <span class="num">${eur(c.price)}</span>` : ""}`; }
+}
+$("#heroPhoto").addEventListener("click", e => { if (e.target.closest(".hp-frame") && !$("#heroTag").hidden) openDetail(CONFIG.heroCake); });
+function renderContact() {
+  const ct = CONFIG.contact;
+  const ico = { phone: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>', email: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+    ig: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/>', fb: '<path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"/>',
+    place: '<path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>' };
+  const line = (k, l, v) => `<div class="c-line"><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ico[k]}</svg></span>
+    <span><span class="hint" style="display:block;font-weight:600">${l}</span>${v ? `<span style="user-select:all">${esc(v)}</span>` : `<span class="todo">${t("ct_todo")}</span>`}</span></div>`;
+  $("#contactCard").innerHTML = `<h3>LENZ baby</h3>${line("place", t("ct_place"), ct.place)}${line("phone", t("ct_phone"), ct.phone)}${line("email", t("ct_email"), ct.email)}${line("ig", t("ct_ig"), ct.instagram)}${ct.facebook ? line("fb", t("ct_fb"), ct.facebook) : ""}`;
+}
+
+/* ---------- events ---------- */
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-detail],[data-lb],[data-close],[data-lang],[data-mode],#menuBtn,#lbPrev,#lbNext,[data-copy],[data-sold-all],[data-sold-mode]");
+  if (!el) { if (e.target.closest(".mobile-nav a")) toggleMenu(false); return; }
+  if (el.dataset.detail) openDetail(el.dataset.detail);
+  else if (el.hasAttribute("data-sold-all")) openSoldAll();
+  else if ("soldMode" in el.dataset) { SOLD_MODE = el.dataset.soldMode || null; renderSoldAll(); }
+  else if (el.dataset.lb) { lbShow(+el.dataset.lb); $("#lbDlg").showModal(); }
+  else if (el.hasAttribute("data-close")) el.closest("dialog").close();
+  else if (el.id === "lbPrev") lbShow(LB.i - 1);
+  else if (el.id === "lbNext") lbShow(LB.i + 1);
+  else if (el.dataset.lang) setLang(el.dataset.lang);
+  else if ("mode" in el.dataset) setMode(el.dataset.mode);
+  else if (el.id === "menuBtn") toggleMenu();
+  else if (el.hasAttribute("data-copy")) {
+    const p = el.closest(".done").querySelector("pre");
+    const sel = () => { const r = document.createRange(); r.selectNodeContents(p); const s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+    try { navigator.clipboard.writeText(p.textContent).then(() => { el.textContent = t("ok_copied"); }, sel); } catch (x) { sel(); }
+  }
+});
+document.addEventListener("keydown", e => { if ($("#lbDlg").open) { if (e.key === "ArrowLeft") lbShow(LB.i - 1); if (e.key === "ArrowRight") lbShow(LB.i + 1); } });
+["detailDlg", "lbDlg", "soldDlg"].forEach(id => $("#" + id).addEventListener("click", e => { if (e.target.id === id) e.target.close(); }));
+$("#detailBody").addEventListener("change", e => {
+  if (e.target.name === "slot") { R.slot = e.target.value; const er = $("#e-slot"); if (er) er.hidden = true; }
+});
+$("#detailBody").addEventListener("input", e => {
+  const m = { "r-cname": "cname", "r-phone": "phone", "r-note": "note", "r-date": "date" }[e.target.id];
+  if (m) { R[m] = e.target.value; const er = $("#e-" + e.target.id.slice(2)); if (er) er.hidden = true; }
+});
+$("#detailBody").addEventListener("submit", e => { e.preventDefault(); submitRes(); });
+function toggleMenu(force) { const m = $("#mobileNav"), b = $("#menuBtn"); const open = force ?? m.hidden; m.hidden = !open; b.setAttribute("aria-expanded", String(open)); }
+function setLang(l) {
+  if (l === "hu" && !Object.keys(I18N.hu).length) { document.querySelector('[data-lang="hu"]').animate([{ transform: "translateX(-3px)" }, { transform: "translateX(3px)" }, { transform: "none" }], { duration: 220 }); return; }
+  LANG = l; document.querySelectorAll("[data-lang]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === l))); renderAll();
+}
+function renderAll() {
+  applyStaticI18n();
+  $("#aboutPhoto").innerHTML = photo(CONFIG.photos.about, "ruky pri tvorbe torty");
+  $("#faqHold").textContent = t("faqHold", { c: CONFIG.confirmWithin });
+  $("#faqPay").textContent = CONFIG.payment;
+  renderPick(); renderCakes(); renderPickup(); renderContact(); renderHero(); renderCustom();
+}
+renderAll();
+</script>
+
+</body></html>

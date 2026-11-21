@@ -160,9 +160,10 @@ button,input,select,textarea{font:inherit;color:inherit}
   .hero-copy{justify-items:center;text-align:center}
   .hero .lead{text-align:center}
   .hero-photo{width:min(100%,340px)}
-  .hp-heart{left:-14px}.hp-rainbow{right:-18px}
-  .hp-heart img{width:52px}.hp-rainbow img{width:110px}
+  .hero-photo .deco{display:none} /* srdiečko a dúha pri fotke len na širokej obrazovke */
 }
+/* Na mobile dekorácie v sekciách nezakrývajú nadpisy */
+@media (max-width:700px){.band .deco,#vyzdvihnutie .deco{display:none}}
 .btn-lg{min-height:62px;padding:0 40px;font-size:1.12rem}
 .benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:clamp(36px,5vw,64px);position:relative;z-index:1}
 .benefit{display:flex;gap:14px;align-items:center;padding:20px;background:var(--surface);border-radius:var(--r-card);border:1px solid var(--line)}
@@ -279,6 +280,11 @@ textarea{min-height:90px;resize:vertical}
 .c-line{display:flex;gap:12px;align-items:center;font-weight:700}
 .c-line .ico{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--surface-2);flex:none}
 .todo{color:var(--muted);font-weight:600;font-style:italic}
+.ig-line{text-decoration:none;padding:8px 14px 8px 8px;margin-inline:-8px;border-radius:18px;border:1px solid var(--line);background:var(--surface);transition:transform .2s ease,box-shadow .2s ease}
+.ig-line:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.ig-line img{width:56px;height:56px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--line)}
+.ig-line>span:nth-child(2){flex:1;min-width:0}
+.ig-go{font-size:1.2rem;color:var(--muted)}
 footer .logo img{height:56px}
 footer{padding-block:40px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
 .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center}
@@ -444,7 +450,6 @@ input:focus,textarea:focus{border-color:var(--ink);outline:none}
           <li data-i18n="custom.s2">Zavoláme vám a dohodneme detaily aj cenu.</li>
           <li data-i18n="custom.s3">Tortu vyrobíme a odovzdáme v Dunajskej Strede.</li>
         </ol>
-        <div id="customCall"></div>
       </div>
       <form class="res" id="customForm" novalidate></form>
     </div>
@@ -509,7 +514,7 @@ input:focus,textarea:focus{border-color:var(--ink);outline:none}
       <details><summary><span data-i18n="faq.4.q">Ako dlho platí rezervácia?</span><span class="pm" aria-hidden="true">+</span></summary>
         <div class="a"><p id="faqHold" data-i18n="faq.4.a">Rezervácia platí po našom potvrdení. Tortu vám potom držíme do zvoleného dňa vyzdvihnutia.</p></div></details>
       <details><summary><span data-i18n="faq.5.q">Dá sa na tortu napísať meno dieťatka?</span><span class="pm" aria-hidden="true">+</span></summary>
-        <div class="a"><p data-i18n="faq.5.a">Áno, na požiadanie. Napíšte meno do poznámky pri rezervácii a my sa vám ozveme s potvrdením.</p></div></details>
+        <div class="a"><p data-i18n="faq.5.a">Áno, za príplatok 3 €. Pri rezervácii stačí vyplniť políčko „Meno dieťatka na tortu“ a príplatok sa hneď pripočíta k cene.</p></div></details>
       <details><summary><span data-i18n="faq.6.q">Ako sa platí?</span><span class="pm" aria-hidden="true">+</span></summary>
         <div class="a"><p id="faqPay" data-i18n="faq.6.a">Pri vyzdvihnutí.</p></div></details>
       <details><summary><span data-i18n="faq.7.q">Páči sa mi torta, ktorá je už predaná. Dá sa objednať?</span><span class="pm" aria-hidden="true">+</span></summary>
@@ -580,14 +585,16 @@ input:focus,textarea:focus{border-color:var(--ink);outline:none}
    Fotky: priečinok „fotky/“, názvy podľa id torty (napr. fotky/t01-hlavna.jpg).
    ===================================================================== */
 const CONFIG = {
-  formEndpoint: "",          // adresa služby na formuláre (napr. Formspree); prázdne = rezervácia sa zobrazí na skopírovanie
-  contact: { phone: "", email: "", instagram: "", facebook: "", place: "Dunajská Streda" },
+  formEndpoint: "",          // adresa Google Apps Script (návod: email/rezervacia-apps-script.gs) – pošle zákazníkovi potvrdzovací e-mail
+                             // a vám kópiu. Prázdne = zákazník dostane zhrnutie na skopírovanie, e-mail sa neposiela.
+  contact: { phone: "+421 917 154 016", email: "lenzbabyds@gmail.com", instagram: "@lenz_baby", facebook: "", place: "Dunajská Streda" },
   photos: { about: "fotky/tvorba.jpg" },
   // Torta na úvodnej fotke. Fotku meníte v HTML (id="heroImg") aj v <link rel="preload"> v hlavičke.
   // Ak torta s týmto id už nie je v ponuke alebo je predaná, štítok s cenou sa skryje a fotka ostane len ako ukážka tvorby.
   heroCake: "t05",
   payment: "Pri vyzdvihnutí.",              // DOPLNIŤ – napr. „Pri vyzdvihnutí v hotovosti alebo prevodom vopred.“
-  confirmWithin: "do 24 hodín",              // PRACOVNÉ – za koľko potvrdíte rezerváciu
+  namePrice: 3,               // príplatok za meno dieťatka na torte (€)
+  confirmWithin: "do 24 hodín",             // PRACOVNÉ – za koľko potvrdíte rezerváciu
   // Výdajné okná. day: 1 = pondelok … 6 = sobota, 0 = nedeľa. PRACOVNÉ
   pickupWindows: [
     { day: 1, time: "16:30 – 20:00" },
@@ -600,13 +607,13 @@ const CONFIG = {
   closedDates: [],            // dni bez výdaja, napr. ["2026-12-24", "2026-12-26"]
   slotsShown: 8,              // koľko najbližších termínov ponúknuť
   minDays: 1,                 // najskôr o koľko dní od rezervácie
-  orderLeadDays: 7,           // PRACOVNÉ – koľko dní vopred treba objednať tortu na želanie (podobnú alebo vlastnú)
+  orderLeadDays: 2,       // PRACOVNÉ – koľko dní vopred treba objednať tortu na želanie (podobnú alebo vlastnú)
   // Torta na želanie – orientačné rozpočty (PRACOVNÉ, upravte podľa seba)
   budgets: [
-    { id: "b45",  name: "Malá pozornosť", from: 45,  desc: "30 plienok, ponožky, jemné zdobenie a darčekové balenie" },
-    { id: "b69",  name: "Tak akurát",     from: 69,  desc: "50 plienok, menší plyšák, ponožky a darčekové balenie", tag: "Zlatá stredná cesta" },
-    { id: "b99",  name: "Veľká radosť",   from: 99,  desc: "75 plienok, plyšák, látková plienka, menovka a balenie" },
-    { id: "b139", name: "Slávnostný dar", from: 139, desc: "100–120 plienok, väčší plyšák, bohatšie zdobenie, personalizácia a balenie" }
+    { id: "b45",  name: "Malá pozornosť", from: 45,  desc: "cca 30 plienok, ponožky, jemné zdobenie a darčekové balenie" },
+    { id: "b69",  name: "Tak akurát",     from: 69,  desc: "cca 50 plienok, menší plyšák, ponožky a darčekové balenie", tag: "Zlatá stredná cesta" },
+    { id: "b99",  name: "Veľká radosť",   from: 99,  desc: "cca 75 plienok, plyšák, látková plienka, menovka a balenie" },
+    { id: "b139", name: "Slávnostný dar", from: 139, desc: "cca 100–120 plienok, väčší plyšák, bohatšie zdobenie, personalizácia a balenie" }
   ],
   colors: {
     girl:    { dot: "#F4A9B8" },
@@ -627,47 +634,47 @@ const CONFIG = {
        Predanú tortu, ktorú už nechcete ukazovať ani ako inšpiráciu, vymažte. */
   cakes: [
     // ---- Nové torty (fotky 11/2026). DOPLNIŤ: price, diapers, brand, size, contents, dims ----
-    { id: "t08", name: "Ružová motorka",      color: "girl",    colorName: "ružová a mätová", price: null,
-      diapers: null, brand: "", size: "", contents: [], dims: "", packaging: "Celofán a stuha",
+    { id: "t08", name: "Ružová motorka",      color: "girl",    colorName: "ružová a mätová", price: 79.90,
+      diapers: 52, brand: "Pampers", size: "2–5 kg", contents: ["Detská miska Baby Love", "Podbradník", "Ružové ponožky (4 ks)"], dims: "", packaging: "Celofán a stuha",
       photos: [ { src: "fotky/motorka-studio.jpg",   label: "Torta" },
                 { src: "fotky/motorka-studio-2.jpg", label: "Z druhej strany" },
                 { src: "fotky/motorka-model.jpg",    label: "Pre predstavu veľkosti" },
                 { src: "fotky/motorka-zabalena.jpg", label: "Zabalená" } ] },
-    { id: "t09", name: "Ružový zámok",        color: "girl",    colorName: "ružová", price: null,
-      diapers: null, brand: "", size: "", contents: [], dims: "", packaging: "Celofán a stuha",
+    { id: "t09", name: "Ružový zámok",        color: "girl",    colorName: "ružová", price: 79.90,
+      diapers: 54, brand: "F&F", size: "5–9 kg", contents: ["Dojčenská fľaša Baby Love", "Retiazka na cumlík", "Cumlík", "Ponožky"], dims: "", packaging: "Celofán a stuha",
       photos: [ { src: "fotky/zamok-studio.jpg",   label: "Torta" },
                 { src: "fotky/zamok-model.jpg",    label: "Pre predstavu veľkosti" },
                 { src: "fotky/zamok-zabalena.jpg", label: "Zabalená" } ] },
-    { id: "t10", name: "Teplovzdušný balón",  color: "neutral", colorName: "béžová a biela", price: null,
-      diapers: null, brand: "", size: "", contents: [], dims: "", packaging: "Celofán a stuha",
+    { id: "t10", name: "Balón do oblakov",    color: "neutral", colorName: "béžová a biela", price: 69.90,
+      diapers: 30, brand: "F&F", size: "3–6 kg", contents: ["Malá deka", "2 látkové plienky", "Plyšová hrkálka"], dims: "", packaging: "Celofán a stuha",
       photos: [ { src: "fotky/balon-studio.jpg",   label: "Torta" },
                 { src: "fotky/balon-model.jpg",    label: "Pre predstavu veľkosti" },
                 { src: "fotky/balon-zabalena.jpg", label: "Zabalená" } ] },
-    { id: "t11", name: "Zajačik v modrom",    color: "boy",     colorName: "modrá a béžová", price: null,
-      diapers: null, brand: "", size: "", contents: [], dims: "", packaging: "Celofán a stuha",
+    { id: "t11", name: "Psík v modrom",       color: "boy",     colorName: "modrá a béžová", price: 69.90,
+      diapers: 42, brand: "Baby Love", size: "3–6 kg", contents: ["Plyšová hrkálka", "2 látkové plienky", "Ponožky (4 ks)", "Podbradník", "Cumlík"], dims: "", packaging: "Celofán a stuha",
       photos: [ { src: "fotky/zajacik-studio.jpg",   label: "Torta" },
                 { src: "fotky/zajacik-model.jpg",    label: "Pre predstavu veľkosti" },
                 { src: "fotky/zajacik-zabalena.jpg", label: "Zabalená" } ] },
-    { id: "t12", name: "Slnečnica",           color: "neutral", colorName: "žltá a zelená", price: null,
-      diapers: null, brand: "", size: "", contents: [], dims: "", packaging: "Celofán a stuha",
+    { id: "t12", name: "Slnečnica",           color: "neutral", colorName: "žltá a zelená", price: 74.90,
+      diapers: 76, brand: "F&F", size: "30 ks na 3–6 kg + 46 ks na 9–16 kg", contents: ["Dojčenská fľaša Baby Love", "2 látkové plienky", "Vlhčené utierky Baby Love", "Teplé ponožky", "Podbradník"], dims: "", packaging: "Celofán a stuha",
       photos: [ { src: "fotky/slnecnica-studio.jpg",   label: "Torta" },
                 { src: "fotky/slnecnica-model.jpg",    label: "Pre predstavu veľkosti" },
                 { src: "fotky/slnecnica-zabalena.jpg", label: "Zabalená" } ] },
-    { id: "t13", name: "Tyrkysová stuha",     color: "boy",     colorName: "tyrkysová a biela", price: null,
-      diapers: null, brand: "", size: "", contents: [], dims: "", packaging: "Celofán a stuha",
+    { id: "t13", name: "Modrý obláčik",       color: "boy",     colorName: "tyrkysová a biela", price: 49.90,
+      diapers: 56, brand: "Baby Love", size: "3–5 kg", contents: ["Detský šampón Baby Love", "Sprchový gél Baby Love", "Vlhčené utierky Baby Love", "Látková plienka"], dims: "", packaging: "Celofán a stuha",
       photos: [ { src: "fotky/modra-stuha-studio.jpg",   label: "Torta" },
                 { src: "fotky/modra-stuha-model.jpg",    label: "Pre predstavu veľkosti" },
                 { src: "fotky/modra-stuha-zabalena.jpg", label: "Zabalená" } ] },
     // ---- Predané ----
     { id: "t05", name: "Ružový jednorožec",   color: "girl",    colorName: "malinová a púdrová ružová", price: 119, sold: true,
-      diapers: 100, brand: "", size: "2 (3–6 kg)", contents: ["Plyšový jednorožec", "Písmená z korálok", "Látkové kvety", "Saténové a organzové mašle"], dims: "cca 35 × 55 cm, 4 poschodia", packaging: "Celofán a stuha",
+      diapers: 108, brand: "", size: "2 (3–6 kg)", contents: ["Plyšový jednorožec", "3 látkové plienky", "Písmená z korálok", "Malý darčekový box na retiazku (súčasť výzdoby)"], dims: "", packaging: "Celofán a stuha",
       photos: [ { src: "fotky/jednorozec-studio.jpg", label: "Torta" },
                 { src: "fotky/jednorozec-celok.jpg",  label: "Celok" },
                 { src: "fotky/jednorozec-hracka.jpg", label: "Jednorožec" },
                 { src: "fotky/jednorozec-detail.jpg", label: "Písmená z korálok" },
                 { src: "fotky/jednorozec-masle.jpg",  label: "Mašle a kvety" } ] },
-    { id: "t14", name: "Žltý psík",           color: "neutral", colorName: "žltá, zelená a biela", price: null, sold: true,
-      diapers: null, brand: "", size: "", contents: [], dims: "", packaging: "",
+    { id: "t14", name: "Veselý psík",         color: "neutral", colorName: "žltá, zelená a biela", price: 59.90, sold: true,
+      diapers: 40, brand: "", size: "", contents: ["Zateplené ponožky", "Dojčenská fľaša Baby Love", "Látková plienka", "Podbradník", "Plyšová hrkálka"], dims: "", packaging: "",
       photos: [ { src: "fotky/psik-studio.jpg", label: "Torta" } ] }
   ]
 };
@@ -685,13 +692,13 @@ const I18N = {
     s_change:"Čo chcete zmeniť (nepovinné)", s_changePh: "napr. modré farby namiesto ružových, meno Tomáško",
     s_total: "Orientačná cena", s_send: "Objednať podobnú",
     s_legal: "Objednávka je nezáväzná. Ozveme sa vám {c}, doladíme detaily a potvrdíme cenu aj termín.",
-    s_term: "Na objednávku, približne {n} dní", e_date: "Vyberte, kedy tortu potrebujete.",
+    s_term: "Na objednávku, približne 2 až 5 dní", e_date: "Vyberte, kedy tortu potrebujete.",
     ok_tReq: "Ďakujeme! Požiadavka je pripravená",
     ok_req: "Ďakujeme! Požiadavku sme prijali. Ozveme sa vám {c}.",
     ok_reqManual: "Pošlite nám, prosím, toto zhrnutie SMS-kou alebo e-mailom. Ozveme sa vám {c}.",
-    c_budget: "Rozpočet", c_for: "Pre koho", c_forOpts: { girl: "Dievčatko", boy: "Chlapček", neutral: "Neutrálne / zatiaľ nevieme" },
+    c_budget: "Rozpočet", c_budgetHint: "Počet plienok je orientačný, závisí od balenia plienok. Presný obsah vašej torty dohodneme pri hovore.", c_for: "Pre koho", c_forOpts: { girl: "Dievčatko", boy: "Chlapček", neutral: "Neutrálne / zatiaľ nevieme" },
     c_when: "Kedy ju potrebujete (nepovinné)", c_note: "Vaša predstava (nepovinné)", c_notePh: "napr. jednorožec, pastelové farby, meno Ema, krabička na retiazku",
-    c_send: "Zavolajte mi", c_call: "Alebo nám rovno zavolajte", c_legal: "Nezáväzné. Ozveme sa vám {c} a všetko doladíme telefonicky. Tortu na želanie zvyčajne vyrobíme za 2 až 5 dní.",
+    c_send: "Poslať žiadosť", c_legal: "Nezáväzné. Ozveme sa vám {c} a všetko doladíme telefonicky. Tortu na želanie zvyčajne vyrobíme za 2 až 5 dní.",
     e_budget: "Vyberte orientačný rozpočet.",
     none: "Momentálne nemáme hotovú tortu. Nová séria je na ceste, sledujte nás.",
     noneMode: "Pre tento výber teraz nemáme hotovú tortu. Pozrite si všetky torty alebo nám napíšte.",
@@ -700,15 +707,17 @@ const I18N = {
     d_termVal: "Hotová. Vyzdvihnutie najbližší výdajný deň.",
     d_gal: ["Celok", "Detail", "Mašle", "Kvety", "Hračka"], d_photo: "Fotografie zobrazujú presne túto tortu.",
     r_title: "Rezervácia", r_slot: "Kedy si ju vyzdvihnete",
-    r_you: "Vaše meno", r_phone: "Telefón", r_note: "Poznámka (nepovinné)", r_noteHint: "Meno dieťatka na tortu doplníme na požiadanie, napíšte ho sem.", r_total: "Spolu", r_send: "Rezervovať tortu",
-    r_legal: "Platí sa pri vyzdvihnutí. Rezervácia platí po našom potvrdení ({c}).",
+    r_you: "Vaše meno", r_phone: "Telefón", r_note: "Poznámka (nepovinné)", r_notePh: "napr. otázka alebo želanie",
+    r_baby: "Meno dieťatka na tortu (nepovinné)", r_babyHint: "Príplatok za meno na torte je {p}. Ak ho vyplníte, pripočíta sa k cene.", r_babyShort: "meno", r_total: "Spolu", r_send: "Rezervovať tortu",
+    r_email: "E-mail", r_emailHint: "Pošleme vám naň potvrdenie so všetkými informáciami o vyzdvihnutí.",
+    e_email: "Napíšte e-mail, aby sme vám mohli poslať potvrdenie.", r_sending: "Odosielam…",
     e_slot: "Vyberte termín vyzdvihnutia.", e_name: "Napíšte vaše meno.", e_phone: "Napíšte telefón, aby sme sa vám mohli ozvať.",
-    ok_t: "Ďakujeme! Rezervácia je pripravená", ok_sent: "Rezerváciu sme prijali. Potvrdíme ju {c} a pošleme presné miesto odovzdania.",
+    ok_t: "Ďakujeme! Rezervácia je pripravená", ok_sent: "Rezerváciu sme prijali. Potvrdenie so všetkými informáciami o vyzdvihnutí sme vám poslali na <b>{email}</b>. Ak ho nevidíte, pozrite sa aj do priečinka Spam alebo Promo akcie.",
     ok_manual: "Pošlite nám, prosím, toto zhrnutie SMS-kou alebo e-mailom. Rezerváciu potvrdíme {c}.", ok_copy: "Skopírovať", ok_copied: "Skopírované",
     ph: "Sem patrí fotografia", days: ["nedeľa","pondelok","utorok","streda","štvrtok","piatok","sobota"], daysShort: ["Ne","Po","Ut","St","Št","Pi","So"],
-    f_place: "Miesto", f_placeV: "Dunajská Streda. Presnú adresu pošleme pri potvrdení.", f_pay: "Platba", f_area: "Pre koho",
-    f_areaV: "Pre zákazníkov z okresu Dunajská Streda, ktorí si tortu vyzdvihnú osobne.", f_ready: "Kedy najskôr", f_readyV: "Na druhý deň po rezervácii vo výdajnom čase. Ak vám žiadny termín nevyhovuje, radi sa dohodneme na inom.",
-    f_name: "Meno na torte", f_nameV: "Na požiadanie. Stačí ho napísať do poznámky pri rezervácii.",
+    f_place: "Miesto", f_placeV: "Dunajská Streda", f_pay: "Platba", f_area: "Pre koho",
+    f_areaV: "Pre zákazníkov, ktorí si tortu vyzdvihnú osobne.", f_ready: "Kedy najskôr", f_readyV: "Na druhý deň po rezervácii vo výdajnom čase. Ak vám žiadny termín nevyhovuje, radi sa dohodneme na inom.",
+    f_name: "Meno na torte", f_nameV: "Na požiadanie, za príplatok 3 €. Stačí ho vyplniť pri rezervácii.",
     ct_phone: "Telefón", ct_email: "E-mail", ct_ig: "Instagram", ct_fb: "Facebook", ct_place: "Osobný odber", ct_todo: "doplníme",
     faqHold: "Rezervácia platí po našom potvrdení, ktoré pošleme {c}. Tortu vám potom držíme do zvoleného dňa vyzdvihnutia."
   },
@@ -746,7 +755,10 @@ function setMode(m) {
 }
 const mainPhoto = c => c.photos ? c.photos[0].src : `fotky/${c.id}-hlavna.jpg`;
 const priceTxt = c => c.price ? eur(c.price) : c.sold ? "" : t("priceTbd"); // predaná bez ceny: nič
-const diaperTxt = c => [c.diapers ? `${c.diapers} ks` : "", c.brand, c.size ? "veľ. " + c.size : ""].filter(Boolean).join(" · ");
+// size: "2 (3–6 kg)" → „veľ. 2 (3–6 kg)“; len hmotnosť "3–5 kg" → „na 3–5 kg“;
+//       dve veľkosti s počtami, napr. "30 ks na 3–6 kg + 46 ks na 9–16 kg" → zobrazí sa tak, ako je
+const sizeTxt = s => !s ? "" : /^\d+\s*[–-]\s*\d+\s*kg$/.test(s.trim()) ? "na " + s : /\bks\b/.test(s) ? s : "veľ. " + s;
+const diaperTxt = c => [c.diapers ? `${c.diapers} ks` : "", c.brand, sizeTxt(c.size)].filter(Boolean).join(" · ");
 const metaPills = c => `<div class="meta"><span class="pill"><span class="dotc" style="background:${dot(c.color)}"></span>${esc(c.colorName)}</span>${c.diapers ? `<span class="pill">${c.diapers} plienok</span>` : ""}</div>`;
 function renderCakes() {
   const fit = CONFIG.cakes.filter(c => !MODE || c.color === MODE || c.color === "neutral")
@@ -757,7 +769,7 @@ function renderCakes() {
       <div class="cake-body">
         <div class="cake-top"><h3>${esc(c.name)}</h3><span class="price num">${priceTxt(c)}</span></div>
         ${metaPills(c)}
-        ${(() => { const li = [[c.brand, c.size ? "veľ. " + c.size : ""].filter(Boolean).join(", "), ...(c.contents || [])].filter(Boolean);
+        ${(() => { const li = [[c.brand, sizeTxt(c.size)].filter(Boolean).join(", "), ...(c.contents || [])].filter(Boolean);
           return li.length ? `<ul>${li.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""; })()}
         <button type="button" class="btn btn-primary" data-detail="${c.id}">${t("view")}</button>
       </div></article>`).join("") : `<p class="empty">${t(MODE ? "noneMode" : "none")}</p>`;
@@ -816,10 +828,17 @@ const leadDate = () => { const d = new Date(); d.setDate(d.getDate() + CONFIG.or
 const fmtIso = s => { const [y, m, d] = s.split("-"); return `${+d}. ${+m}. ${y}`; };
 function openDetail(id) {
   CUR = CONFIG.cakes.find(c => c.id === id); DONE = null;
-  R = { slot: "", date: "", cname: R.cname || "", phone: R.phone || "", note: "" };
+  R = { slot: "", date: "", cname: R.cname || "", phone: R.phone || "", email: R.email || "", note: "", baby: "" };
   renderDetail(); $("#detailDlg").showModal(); $("#detailDlg .dlg").scrollTop = 0;
 }
-function total() { return CUR.price; }
+// Spolu = cena torty + príplatok za meno na torte (ak je vyplnené)
+const hasBaby = () => !CUR.sold && !!(R.baby || "").trim();
+function total() { return CUR.price ? Math.round((CUR.price + (hasBaby() ? CONFIG.namePrice : 0)) * 100) / 100 : null; }
+const totalTxt = () => CUR.price ? eur(total()) : priceTxt(CUR);
+const breakTxt = () => hasBaby() && CUR.price ? `${eur(CUR.price)} + ${t("r_babyShort")} ${eur(CONFIG.namePrice)}` : "";
+function updateTotal() { const a = $("#rTotal"), b = $("#rBreak"); if (!a) return;
+  const nt = totalTxt(); if (a.textContent !== nt) { a.textContent = nt; a.classList.remove("bump"); void a.offsetWidth; a.classList.add("bump"); }
+  b.textContent = breakTxt(); }
 function renderDetail() {
   const c = CUR, labels = t("d_gal");
   let raw = c.photos || SLOTS.map((s, i) => ({ src: `fotky/${c.id}-${s}.jpg`, label: labels[i] }));
@@ -839,7 +858,6 @@ function renderDetail() {
         [t("d_diapers"), diaperTxt(c)],
         [t("d_other"), (c.contents || []).join(", ")],
         [t("d_color"), c.colorName],
-        [t("d_dims"), c.dims],
         [t("d_pack"), c.packaging],
         [t("d_term"), c.sold ? t("s_term", { n: CONFIG.orderLeadDays }) : t("d_termVal")]
       ].filter(r => r[1]).map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join("")}
@@ -868,10 +886,11 @@ function renderDetail() {
           <div class="field"><label for="r-cname">${t("r_you")}</label><input type="text" id="r-cname" autocomplete="name" value="${esc(R.cname)}"><span class="err" id="e-cname" hidden></span></div>
           <div class="field"><label for="r-phone">${t("r_phone")}</label><input type="tel" id="r-phone" autocomplete="tel" inputmode="tel" placeholder="+421" value="${esc(R.phone)}"><span class="err" id="e-phone" hidden></span></div>
         </div>
-        <div class="field"><label for="r-note">${t("r_note")}</label><input type="text" id="r-note" value="${esc(R.note)}" placeholder="napr. meno Ema na tortu"><span class="hint">${t("r_noteHint")}</span></div>
-        <div class="tot"><span style="font-weight:800">${t("r_total")}</span><strong id="rTotal">${priceTxt(c)}</strong></div>
-        <button type="submit" class="btn btn-primary">${t("r_send")}</button>
-        <p class="hint">${t("r_legal", { c: CONFIG.confirmWithin })}</p>`}
+        <div class="field"><label for="r-email">${t("r_email")}</label><input type="email" id="r-email" autocomplete="email" inputmode="email" placeholder="vas@email.sk" value="${esc(R.email)}"><span class="hint">${t("r_emailHint")}</span><span class="err" id="e-email" hidden></span></div>
+        <div class="field"><label for="r-baby">${t("r_baby")}</label><input type="text" id="r-baby" value="${esc(R.baby)}" placeholder="napr. Ema" maxlength="20"><span class="hint">${t("r_babyHint", { p: eur(CONFIG.namePrice) })}</span></div>
+        <div class="field"><label for="r-note">${t("r_note")}</label><input type="text" id="r-note" value="${esc(R.note)}" placeholder="${esc(t("r_notePh"))}"></div>
+        <div class="tot"><span style="font-weight:800">${t("r_total")}</span><span style="display:grid;justify-items:end"><strong id="rTotal">${totalTxt()}</strong><small class="hint" id="rBreak">${breakTxt()}</small></span></div>
+        <button type="submit" class="btn btn-primary">${t("r_send")}</button>`}
       </form>
     </div></div>`;
 }
@@ -884,14 +903,15 @@ function summaryText() {
   const s = slots().find(x => x.id === R.slot);
   return ["REZERVÁCIA – LENZ baby", "",
     `Torta: ${CUR.name} (${CUR.id})`,
-    `Spolu: ${priceTxt(CUR)}`, "",
+    hasBaby() ? `Meno na torte: ${R.baby.trim()} (+${eur(CONFIG.namePrice)})` : null,
+    `Spolu: ${totalTxt()}`, "",
     s ? `Vyzdvihnutie: ${t("days")[s.date.getDay()]} ${fmt(s.date)} ${s.date.getFullYear()}, ${s.time}` : null,
-    `Meno: ${R.cname}`, `Telefón: ${R.phone}`, R.note ? `Poznámka: ${R.note}` : null].filter(Boolean).join("\n");
+    `Meno: ${R.cname}`, `Telefón: ${R.phone}`, R.email ? `E-mail: ${R.email}` : null, R.note ? `Poznámka: ${R.note}` : null].filter(Boolean).join("\n");
 }
 function doneHtml() {
   const ct = CONFIG.contact;
   const msg = CUR.sold ? (DONE.sent ? "ok_req" : "ok_reqManual") : (DONE.sent ? "ok_sent" : "ok_manual");
-  return doneBlock(DONE.sent, t(msg, { c: CONFIG.confirmWithin }), summaryText(), CUR.sold);
+  return doneBlock(DONE.sent, t(msg, { c: CONFIG.confirmWithin, email: esc(R.email) }), summaryText(), !!CUR.sold);
 }
 function doneBlock(sent, msg, summary, isRequest = true) {
   const ct = CONFIG.contact;
@@ -907,18 +927,35 @@ function validate() {
   else if (!R.slot) e.slot = t("e_slot");
   if (!R.cname.trim()) e.cname = t("e_name");
   if (R.phone.replace(/\D/g, "").length < 9) e.phone = t("e_phone");
-  ["slot", "date", "cname", "phone"].forEach(k => { const el = $("#e-" + k); if (el) { el.hidden = !e[k]; el.textContent = e[k] || ""; } });
+  if (!CUR.sold && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(R.email.trim())) e.email = t("e_email");
+  ["slot", "date", "cname", "phone", "email"].forEach(k => { const el = $("#e-" + k); if (el) { el.hidden = !e[k]; el.textContent = e[k] || ""; } });
   const f = Object.keys(e)[0];
   if (f) { const el = f === "slot" ? $('#resForm input[name=slot]') : $("#r-" + f); el && el.focus(); }
   return !f;
 }
 async function post(data) {
   if (!CONFIG.formEndpoint) return false;
-  try { const r = await fetch(CONFIG.formEndpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(data) }); return r.ok; } catch (x) { return false; }
+  // Google Apps Script prijíma obyčajný text (bez CORS predletu); ostatné služby JSON
+  const gas = /script\.google\.com/.test(CONFIG.formEndpoint);
+  try { const r = await fetch(CONFIG.formEndpoint, { method: "POST",
+      headers: gas ? { "Content-Type": "text/plain;charset=utf-8" } : { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(data) });
+    if (!r.ok) return false;
+    if (gas) { try { return (await r.json()).ok === true; } catch (x) { return false; } }
+    return true; } catch (x) { return false; }
 }
 async function submitRes() {
   if (!validate()) return;
-  const sent = await post({ typ: CUR.sold ? "podobna" : "rezervacia", zhrnutie: summaryText(), torta: CUR.id, meno: R.cname, telefon: R.phone, termin: CUR.sold ? R.date : R.slot, cena: total() });
+  const btn = $("#resForm button[type=submit]"); if (btn) { btn.disabled = true; btn.textContent = t("r_sending"); }
+  const s = !CUR.sold && slots().find(x => x.id === R.slot);
+  const sent = await post({ typ: CUR.sold ? "podobna" : "rezervacia", zhrnutie: summaryText(),
+    torta: CUR.id, tortaNazov: CUR.name, cena: total(), cenaText: totalTxt(), cenaRozpis: breakTxt(),
+    menoNaTorte: hasBaby() ? R.baby.trim() : "", menoPriplatok: hasBaby() ? eur(CONFIG.namePrice) : "",
+    obsah: [diaperTxt(CUR) && "Plienky: " + diaperTxt(CUR), ...(CUR.contents || [])].filter(Boolean),
+    termin: CUR.sold ? R.date : R.slot,
+    terminText: s ? `${t("days")[s.date.getDay()]} ${fmt(s.date)} ${s.date.getFullYear()}` : (R.date ? fmtIso(R.date) : ""),
+    cas: s ? s.time : "", miesto: CONFIG.contact.place, platba: CONFIG.payment,
+    meno: R.cname, telefon: R.phone, email: R.email, poznamka: R.note });
   DONE = { sent }; renderDetail();
 }
 /* ---------- torta na želanie (žiadosť o zavolanie) ---------- */
@@ -933,15 +970,13 @@ function customSummary() {
     `Meno: ${C.cname}`, `Telefón: ${C.phone}`].filter(x => x !== null).join("\n");
 }
 function renderCustom() {
-  const ct = CONFIG.contact;
-  $("#customCall").innerHTML = ct.phone ? `<p class="hint">${t("c_call")}</p><div><a class="btn btn-soft" href="tel:${esc(ct.phone.replace(/\s/g, ""))}" style="background:var(--surface)">${esc(ct.phone)}</a></div>` : "";
   if (CDONE) { $("#customForm").innerHTML = doneBlock(CDONE.sent, t(CDONE.sent ? "ok_req" : "ok_reqManual", { c: CONFIG.confirmWithin }), customSummary()); return; }
   const chip = (name, val, cur, inner, cls = "") => `<label class="slot ${cls}"><input type="radio" name="${name}" value="${val}" ${cur === val ? "checked" : ""}>${inner}</label>`;
   $("#customForm").innerHTML = `
     <div class="field"><span class="lbl">${t("c_budget")}</span>
       <div class="budgets">${CONFIG.budgets.map(b => chip("budget", b.id, C.budget,
         `<b>${esc(b.name)}</b><span class="bp">od ${eur(b.from)}</span><small>${esc(b.desc)}</small>${b.tag ? `<span class="gold">${esc(b.tag)}</span>` : ""}`, "budget")).join("")}</div>
-      <span class="err" id="ce-budget" hidden></span></div>
+      <span class="hint">${t("c_budgetHint")}</span><span class="err" id="ce-budget" hidden></span></div>
     <div class="field"><span class="lbl">${t("c_for")}</span>
       <div class="chips">${Object.entries(t("c_forOpts")).map(([k, v]) => chip("forWho", k, C.forWho, `<b>${esc(v)}</b>`)).join("")}</div></div>
     <div class="row2">
@@ -1003,9 +1038,15 @@ function renderContact() {
   const ico = { phone: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>', email: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
     ig: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/>', fb: '<path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"/>',
     place: '<path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>' };
+  // Instagram: profilová fotka + odkaz na profil (instagram.com/<meno bez @>)
+  const igLine = h => { const u = h.replace(/^@/, "");
+    return `<a class="c-line ig-line" href="https://www.instagram.com/${encodeURIComponent(u)}/" target="_blank" rel="noopener">
+      <img src="img/instagram-profil.jpg" alt="Profil LENZ baby na Instagrame" width="56" height="56" loading="lazy">
+      <span><span class="hint" style="display:block;font-weight:600">${t("ct_ig")}</span><span>@${esc(u)}</span></span>
+      <span class="ig-go" aria-hidden="true">↗</span></a>`; };
   const line = (k, l, v) => `<div class="c-line"><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ico[k]}</svg></span>
     <span><span class="hint" style="display:block;font-weight:600">${l}</span>${v ? `<span style="user-select:all">${esc(v)}</span>` : `<span class="todo">${t("ct_todo")}</span>`}</span></div>`;
-  $("#contactCard").innerHTML = `<h3>LENZ baby</h3>${line("place", t("ct_place"), ct.place)}${line("phone", t("ct_phone"), ct.phone)}${line("email", t("ct_email"), ct.email)}${line("ig", t("ct_ig"), ct.instagram)}${ct.facebook ? line("fb", t("ct_fb"), ct.facebook) : ""}`;
+  $("#contactCard").innerHTML = `<h3>LENZ baby</h3>${line("place", t("ct_place"), ct.place)}${line("phone", t("ct_phone"), ct.phone)}${line("email", t("ct_email"), ct.email)}${ct.instagram ? igLine(ct.instagram) : line("ig", t("ct_ig"), "")}${ct.facebook ? line("fb", t("ct_fb"), ct.facebook) : ""}`;
 }
 
 /* ---------- events ---------- */
@@ -1034,7 +1075,8 @@ $("#detailBody").addEventListener("change", e => {
   if (e.target.name === "slot") { R.slot = e.target.value; const er = $("#e-slot"); if (er) er.hidden = true; }
 });
 $("#detailBody").addEventListener("input", e => {
-  const m = { "r-cname": "cname", "r-phone": "phone", "r-note": "note", "r-date": "date" }[e.target.id];
+  const m = { "r-cname": "cname", "r-phone": "phone", "r-email": "email", "r-note": "note", "r-date": "date", "r-baby": "baby" }[e.target.id];
+  if (m === "baby") { R.baby = e.target.value; updateTotal(); return; }
   if (m) { R[m] = e.target.value; const er = $("#e-" + e.target.id.slice(2)); if (er) er.hidden = true; }
 });
 $("#detailBody").addEventListener("submit", e => { e.preventDefault(); submitRes(); });

@@ -17,11 +17,9 @@
 <meta property="og:image" content="fotky/jednorozec-celok.jpg">
 <link rel="preload" as="image" href="fotky/jednorozec-celok.jpg" fetchpriority="high">
 <link rel="preload" as="image" href="img/logo.webp">
-<!-- Písma sa načítajú bez blokovania stránky; kým sa stiahnu, použije sa systémové písmo. -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500..700&family=Nunito:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500..700&family=Nunito:wght@400;600;700;800&display=swap"></noscript>
+<!-- Písma sú uložené priamo na webe (priečinok fonts/), nič sa nesťahuje od Google. Licencia: SIL Open Font License. -->
+<link rel="preload" as="font" type="font/woff2" href="fonts/nunito-latin.woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
 <style>
 html{-webkit-text-size-adjust:100%}
 body{margin:0;padding:0 0 env(safe-area-inset-bottom,0px)}
